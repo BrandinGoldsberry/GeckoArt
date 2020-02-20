@@ -1,0 +1,16 @@
+﻿@model ProjectGecko.Models.Account
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+@if(Model != null)
+{
+    <p>@Model.DisplayName</p>
+    <p>@Model.UserName</p>
+    <p>@Model.Email</p>
+    <img src=@Url.Content(Model.ProfPicPath) alt="Alternate Text" runat="server"/>
+}
