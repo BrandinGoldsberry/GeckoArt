@@ -1,4 +1,5 @@
-﻿@model ProjectGecko.Models.Account
+﻿@using ProjectGecko.Models
+@model ProjectGecko.Models.Account
 
 @{
     ViewData["Title"] = "Index";
@@ -13,4 +14,10 @@
     <p>@Model.UserName</p>
     <p>@Model.Email</p>
     <img src=@Url.Content(Model.ProfPicPath) alt="Alternate Text" runat="server"/>
+
+    foreach (Post post in ViewBag["Posts"])
+    {
+        <p>@post.Title</p>
+        <p></p>
+    }
 }
