@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -49,6 +50,14 @@ namespace ProjectGecko.Models
         public Account()
         {
             AccountID = _lastID++;
+        }
+
+        public static Account GetAccount(int Id)
+        {
+            //connect to mongodb
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            //return user by id
+            return mongoClient.GetCollection<Account>("AccountInfo").Find(a => a.AccountID == Id).First();
         }
     }
 }

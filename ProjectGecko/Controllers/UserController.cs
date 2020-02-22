@@ -100,7 +100,7 @@ namespace ProjectGecko.Controllers
 
                     mongoDatabase = GetMongoDatabase();
                     mongoDatabase.GetCollection<Account>("AccountInfo").InsertOne(account);
-                    SessionVars.AccountTesting.Add(account);
+                    //SessionVars.AccountTesting.Add(account);
                     SessionVars.ActiveAcount = account;
                 }
                 return Redirect("/");
