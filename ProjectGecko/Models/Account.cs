@@ -8,6 +8,8 @@ namespace ProjectGecko.Models
 {
     public class Account
     {
+        private static int _lastID = 0;
+        public int AccountID { get; set; }
         //Account display name
         public string DisplayName { get; set; }
 
@@ -43,5 +45,10 @@ namespace ProjectGecko.Models
         //user's paypal (examplary for this project)
         [DataType(DataType.EmailAddress)]
         public string PayPal { get; set; }
+
+        public Account()
+        {
+            AccountID = _lastID++;
+        }
     }
 }

@@ -8,11 +8,18 @@ using ProjectGecko.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Text.RegularExpressions;
+using MongoDB.Driver;
 
 namespace ProjectGecko.Controllers
 {
     public class UserController : Controller
     {
+        private IMongoDatabase mongoDatabase;
+        public IMongoDatabase GetMongoDatabase()
+        {
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority");
+            return mongoClient.GetDatabase("AccountDB");
+        }
         public IActionResult ShowFeed()
         {
             return View();
@@ -90,10 +97,14 @@ namespace ProjectGecko.Controllers
                         Email = Email,
                         ProfPicPath = pathForImage
                     };
+
+                    mongoDatabase = GetMongoDatabase();
+                    mongoDatabase.GetCollection<Account>("AccountInfo").InsertOne(account);
                     SessionVars.AccountTesting.Add(account);
                     SessionVars.ActiveAcount = account;
                 }
                 return Redirect("/");
+
             }
             return View();
         }
