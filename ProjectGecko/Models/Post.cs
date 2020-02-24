@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,7 @@ namespace ProjectGecko.Models
 {
     public class Post
     {
-        private static int _LastID;
-
-        public int PostID { get; set; }
+        public long PostID { get; set; }
 
         public string Title { get; set; }
 
@@ -21,8 +20,28 @@ namespace ProjectGecko.Models
 
         public Post()
         {
-            PostID = _LastID++;
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            //return user by id
+            long idCount = mongoClient.GetCollection<Post>("Posts").CountDocuments(a => true);
+
+            PostID = idCount;
             Comments = new List<Comment>();
+        }
+
+        public static Post GetPost(long Id)
+        {
+            //connect to mongodb
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            //return user by id
+            return mongoClient.GetCollection<Post>("Posts").Find(a => a.PostID == Id).First();
+        }
+
+        public Account GetPostAccount()
+        {
+            //connect to mongodb
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            //return user by id
+            return mongoClient.GetCollection<Account>("Account").Find(a => a.AccountID == PosterID).First();
         }
     }
 }

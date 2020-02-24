@@ -12,7 +12,7 @@ namespace ProjectGecko.Controllers
         {
             if(SessionVars.ActiveAcount != null)
             {
-                ViewBag["Posts"] = SessionVars.posts;
+                ViewBag.Posts = SessionVars.posts;
                 return View(SessionVars.ActiveAcount);
             }
             return View();

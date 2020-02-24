@@ -9,8 +9,7 @@ namespace ProjectGecko.Models
 {
     public class Account
     {
-        private static int _lastID = 0;
-        public int AccountID { get; set; }
+        public long AccountID { get; set; }
         //Account display name
         public string DisplayName { get; set; }
 
@@ -49,15 +48,25 @@ namespace ProjectGecko.Models
 
         public Account()
         {
-            AccountID = _lastID++;
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            long idCount = mongoClient.GetCollection<Account>("AccountInfo").CountDocuments(a => true);
+            AccountID = idCount;
         }
 
-        public static Account GetAccount(int Id)
+        public static Account GetAccount(long Id)
         {
             //connect to mongodb
             var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
             //return user by id
             return mongoClient.GetCollection<Account>("AccountInfo").Find(a => a.AccountID == Id).First();
+        }
+
+        public static Account GetAccount(string UserName)
+        {
+            //connect to mongodb
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            //return user by id
+            return mongoClient.GetCollection<Account>("AccountInfo").Find(a => a.UserName == UserName).First();
         }
     }
 }

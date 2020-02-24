@@ -17,7 +17,7 @@ namespace ProjectGecko.Controllers
         private IMongoDatabase mongoDatabase;
         public IMongoDatabase GetMongoDatabase()
         {
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority");
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet");
             return mongoClient.GetDatabase("AccountDB");
         }
         public IActionResult ShowFeed()
@@ -43,7 +43,8 @@ namespace ProjectGecko.Controllers
         {
             //System.Diagnostics.Debug.Write("Image Path: " + ProfPicPath.FileName);
 
-            bool userIsTaken = SessionVars.AccountTesting.Where(a => a.UserName == UserName).Count() != 0;
+            //bool userIsTaken = SessionVars.AccountTesting.Where(a => a.UserName == UserName).Count() != 0;
+            bool userIsTaken = mongoDatabase.GetCollection<Account>("AccountInfo").Find(a => a.UserName == UserName) == null;
 
             if(userIsTaken)
             {
