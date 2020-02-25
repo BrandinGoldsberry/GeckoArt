@@ -1,0 +1,36 @@
+﻿@using ProjectGecko.Models
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h1>Search</h1>
+
+@using (Html.BeginForm("Search"))
+{
+    <input type="text" name="SearchBar" value="" />
+    <input type="submit" />
+}
+
+<h2>Profiles</h2>
+<div class="profileList">
+    <div class="searchProfiles">
+        @foreach (Account account in ViewBag.Accounts)
+        {
+            <img src="@Url.Content(account.ProfPicPath)"/> 
+            <p>@Account.GetAccount(account.DisplayName)</p>
+        }
+    </div>
+</div>
+
+<h2>Artwork</h2>
+<div class="artworkList">
+    <div class="searchArtwork">
+        @foreach (Post post in ViewBag.Posts)
+        {
+            <p>@post.Title</p>
+            <p>@Account.GetAccount(post.PosterID)</p>
+        }
+    </div>
+</div>

@@ -8,16 +8,28 @@
 
 <h1>Index</h1>
 
-@if(Model != null)
+@if (Model != null)
 {
     <p>@Model.DisplayName</p>
     <p>@Model.UserName</p>
     <p>@Model.Email</p>
-    <img src=@Url.Content(Model.ProfPicPath) alt="Alternate Text" runat="server"/>
+    <img src=@Url.Content(Model.ProfPicPath) alt="Alternate Text" runat="server" />
 
-    foreach (Post post in ViewBag.Posts)
-    {
-        <p>@post.Title</p>
-        <p>@Account.GetAccount(post.PosterID)</p>
-    }
+    <div class="posts">
+        @foreach (Post post in ViewBag.Posts)
+        {
+            <p>@post.Title</p>
+            <p>@Account.GetAccount(post.PosterID)</p>
+        }
+    </div>
+}
+else
+{
+    <div class="posts">
+        @foreach (Post post in ViewBag.Posts)
+        {
+            <p>@post.Title</p>
+            <p>@Account.GetAccount(post.PosterID)</p>
+        }
+    </div>
 }
