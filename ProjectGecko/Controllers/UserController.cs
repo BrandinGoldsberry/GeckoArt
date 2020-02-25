@@ -109,5 +109,88 @@ namespace ProjectGecko.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult RequestCommission()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RequestCommission(long commissionerID, long commissioneeID, IFormFileCollection imagePaths, string description)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                ModelState.AddModelError("Description", "Please enter a description");
+            }
+            else
+            {
+                if (imagePaths.Any())
+                {
+                    Commission newCommission = new Commission();
+                    Account AccountPoster = Account.GetAccount(commissionerID);
+                    string[] pathList = new string[imagePaths.Count];
+
+
+                    int i = 0;
+                    foreach (var item in imagePaths)
+                    {
+                        if (item.ContentType.ToString() != "image/png" &&
+                            item.ContentType.ToString() != "image/jpeg" &&
+                            item.ContentType.ToString() != "image/jpg")
+                        {
+                            ModelState.AddModelError("imagePaths", "All images MUST be a png or jpeg (jpg)");
+                            break;
+                        }
+                        else
+                        {
+                            var match = Regex.Match(item.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
+                            string ImageExtension = match.Groups["extension"].Value;
+                            string imageName = Regex.Replace(item.FileName, @"\s", "+");
+                            //constructs path for post storage image
+                            string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/Image" + i + ImageExtension;
+                            //for local copy of image
+                            string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/Image" + i + ImageExtension;
+                            pathList[i] = pathForImage;
+                            using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
+                            {
+
+                                item.CopyTo(stream);
+                            }
+
+                            i++;
+
+                            if (imagePaths.Count() == i)
+                            {
+                                newCommission.CommissionerID = commissionerID;
+                                newCommission.CommissioneeID = commissioneeID;
+                                newCommission.ImagePaths = pathList;
+                                newCommission.Description = description;
+                            }
+                        }
+                    }
+
+                    if (newCommission.CommissionerID == commissionerID && newCommission.CommissioneeID == commissioneeID && newCommission.ImagePaths == pathList && newCommission.Description == description)
+                    {
+                        var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet").GetDatabase("AccountDB");
+                        mongoClient.GetCollection<Commission>("Commissions").InsertOne(newCommission);
+
+                        //return Redirect($"/{newCommission.PostID}/ShowPost");
+                        return Redirect("ShowFeed");
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+            }
+            return View();
+        }
+
     }
 }
