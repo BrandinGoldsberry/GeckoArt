@@ -1,0 +1,13 @@
+﻿@model ProjectGecko.Models.Post
+
+@{
+    ViewData["Title"] = "ShowSinglePost";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+    <h2>@Model.Title</h2>
+    @foreach (var item in Model.ImagePaths)
+    {
+        <div class="slide hidden">
+            <img src=@Url.Content(item) alt="Alternate Text" />
+        </div>
+    }
