@@ -47,7 +47,7 @@ namespace ProjectGecko.Controllers
                     Post newPost = new Post()
                     {
                         Title = Title,
- 
+                        PosterID = userid
                     };
 
                     int i = 0;
@@ -83,7 +83,8 @@ namespace ProjectGecko.Controllers
                 {
                     Post newPost = new Post()
                     {
-                        Title = Title
+                        Title = Title,
+                        PosterID = userid
                     };
 
                     var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet").GetDatabase("AccountDB");
