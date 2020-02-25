@@ -14,9 +14,9 @@ namespace ProjectGecko.Controllers
     public class PostController : Controller
     {
         [HttpGet]
-        public IActionResult ShowPost(int postid)
+        public IActionResult ShowPost(long postid)
         {
-            return View();
+            return View(Post.GetPost(postid));
         }
 
         [HttpGet]
@@ -42,7 +42,6 @@ namespace ProjectGecko.Controllers
                 if (ImagePaths.Any())
                 {
                     Account AccountPoster = Account.GetAccount(userid);
-                    Directory.CreateDirectory($"wwwroot/Images/Users/{AccountPoster.UserName}/Profile/");
                     string[] pathList = new string[ImagePaths.Count];
                     Post newPost = new Post()
                     {
@@ -50,6 +49,7 @@ namespace ProjectGecko.Controllers
                         PosterID = userid
                     };
 
+                    Directory.CreateDirectory($"wwwroot/Images/Users/{AccountPoster.UserName}/Posts/{newPost.PostID}");
                     int i = 0;
                     foreach (var item in ImagePaths)
                     {
