@@ -136,7 +136,6 @@ namespace ProjectGecko.Controllers
                     Account AccountPoster = Account.GetAccount(commissionerID);
                     string[] pathList = new string[imagePaths.Count];
 
-
                     int i = 0;
                     foreach (var item in imagePaths)
                     {
@@ -152,14 +151,12 @@ namespace ProjectGecko.Controllers
                             var match = Regex.Match(item.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
                             string ImageExtension = match.Groups["extension"].Value;
                             string imageName = Regex.Replace(item.FileName, @"\s", "+");
-                            //constructs path for post storage image
-                            string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/Image" + i + ImageExtension;
+                            string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
                             //for local copy of image
-                            string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/Image" + i + ImageExtension;
+                            string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
                             pathList[i] = pathForImage;
                             using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
                             {
-
                                 item.CopyTo(stream);
                             }
 
