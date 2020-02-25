@@ -12,7 +12,7 @@ namespace ProjectGecko.Models
 
         public string Title { get; set; }
 
-        public int PosterID { get; set; }
+        public long PosterID { get; set; }
 
         public string[] ImagePaths { get; set; }
 
