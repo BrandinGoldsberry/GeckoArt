@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace ProjectGecko.Models
 {
     public class Post
     {
+        public ObjectId _id;
+
         public long PostID { get; set; }
 
         public string Title { get; set; }

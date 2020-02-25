@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,8 @@ namespace ProjectGecko.Models
 {
     public class Account
     {
+        public ObjectId _id;
+
         public long AccountID { get; set; }
         //Account display name
         public string DisplayName { get; set; }

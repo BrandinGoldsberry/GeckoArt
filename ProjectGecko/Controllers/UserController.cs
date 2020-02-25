@@ -42,7 +42,7 @@ namespace ProjectGecko.Controllers
             IFormFile ProfPicPath)
         {
             //System.Diagnostics.Debug.Write("Image Path: " + ProfPicPath.FileName);
-
+            var mongoDatabase = GetMongoDatabase();
             //bool userIsTaken = SessionVars.AccountTesting.Where(a => a.UserName == UserName).Count() != 0;
             bool userIsTaken = mongoDatabase.GetCollection<Account>("AccountInfo").Find(a => a.UserName == UserName) == null;
 
