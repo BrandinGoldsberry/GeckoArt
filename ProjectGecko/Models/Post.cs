@@ -46,5 +46,13 @@ namespace ProjectGecko.Models
             //return user by id
             return mongoClient.GetCollection<Account>("Account").Find(a => a.AccountID == PosterID).First();
         }
+
+        public static List<Post> GetAllPosts()
+        {
+            //connect to mongodb
+            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            //return user by id
+            return mongoClient.GetCollection<Post>("Posts").Find(x => true).ToList();
+        }
     }
 }

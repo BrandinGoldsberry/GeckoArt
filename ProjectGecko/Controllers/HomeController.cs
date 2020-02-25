@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProjectGecko.Models;
 
 namespace ProjectGecko.Controllers
 {
@@ -10,9 +11,9 @@ namespace ProjectGecko.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Posts = Post.GetAllPosts();
             if(SessionVars.ActiveAcount != null)
             {
-                ViewBag.Posts = SessionVars.posts;
                 return View(SessionVars.ActiveAcount);
             }
             return View();

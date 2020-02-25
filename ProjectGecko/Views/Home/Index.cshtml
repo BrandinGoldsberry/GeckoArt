@@ -19,17 +19,25 @@
         @foreach (Post post in ViewBag.Posts)
         {
             <p>@post.Title</p>
-            <p>@Account.GetAccount(post.PosterID)</p>
+            <p>@Account.GetAccount(post.PosterID).DisplayName</p>
+            @foreach (string item in post.ImagePaths)
+            {
+                <img class="PostListingImage" src=@Url.Content(item) alt="Alternate Text" />
+            }
         }
     </div>
 }
 else
 {
-    <div class="posts">
-        @foreach (Post post in ViewBag.Posts)
+<div class="posts">
+    @foreach (Post post in ViewBag.Posts)
+    {
+        <p>@post.Title</p>
+        <p>@Account.GetAccount(post.PosterID).DisplayName</p>
+        @foreach (string item in post.ImagePaths)
         {
-            <p>@post.Title</p>
-            <p>@Account.GetAccount(post.PosterID)</p>
+            <img class="PostListingImage" src=@Url.Content(item) alt="Alternate Text" />
         }
-    </div>
+    }
+</div>
 }
