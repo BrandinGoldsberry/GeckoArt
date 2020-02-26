@@ -9,9 +9,9 @@
 
 <h2>Log In</h2>
 <div class="LogIn">
-    @using (Html.BeginForm("LogIn", "User"))
+    @using (Html.BeginForm("LogIn", "User", FormMethod.Post))
     {
-        <p>The name that your account is associated with</p>
+        @Html.ValidationSummary(true);
         <p>Username: <span>@Html.EditorFor(m => m.UserName)</span></p>
         <p>@Html.ValidationMessageFor(m => m.UserName)</p>
 
@@ -22,27 +22,27 @@
     }
 </div>
 
-    <h2>Sign Up</h2>
-    <div class="SignUp">
-        @using (Html.BeginForm("CreateAccount", "User"))
-        {
-            <p>The name to be publicly displayed</p>
-            <p>Display Name: <span>@Html.EditorFor(m => m.DisplayName)</span></p>
-            <p>@Html.ValidationMessageFor(m => m.DisplayName)</p>
+<h2>Sign Up</h2>
+<div class="SignUp">
+    @using (Html.BeginForm("CreateAccount", "User", FormMethod.Post))
+    {
+        <p>The name to be publicly displayed</p>
+        <p>Display Name: <span>@Html.EditorFor(m => m.DisplayName)</span></p>
+        <p>@Html.ValidationMessageFor(m => m.DisplayName)</p>
 
-            <p>The name that your account is associated with</p>
-            <p>Username: <span>@Html.EditorFor(m => m.UserName)</span></p>
-            <p>@Html.ValidationMessageFor(m => m.UserName)</p>
+        <p>The name that your account is associated with</p>
+        <p>Username: <span>@Html.EditorFor(m => m.UserName)</span></p>
+        <p>@Html.ValidationMessageFor(m => m.UserName)</p>
 
-            <p>Password: <span>@Html.EditorFor(m => m.Password)</span></p>
-            <p>@Html.ValidationMessageFor(m => m.Password)</p>
+        <p>Password: <span>@Html.EditorFor(m => m.Password)</span></p>
+        <p>@Html.ValidationMessageFor(m => m.Password)</p>
 
-            <p>Phone Number: <span>@Html.EditorFor(m => m.PhoneNumber)</span></p>
+        <p>Phone Number: <span>@Html.EditorFor(m => m.PhoneNumber)</span></p>
 
-            <p>Email: <span>@Html.EditorFor(m => m.Email)</span></p>
+        <p>Email: <span>@Html.EditorFor(m => m.Email)</span></p>
 
-            <input type="submit" />
-        }
-    </div>
+        <input type="submit" />
+    }
+</div>
 
 

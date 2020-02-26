@@ -38,72 +38,67 @@ namespace ProjectGecko.Controllers
             string UserName,
             string PhoneNumber,
             string Email,
-            string Password,
-            IFormFile ProfPicPath)
+            string newPassword)
         {
             //System.Diagnostics.Debug.Write("Image Path: " + ProfPicPath.FileName);
             var mongoDatabase = GetMongoDatabase();
             //bool userIsTaken = SessionVars.AccountTesting.Where(a => a.UserName == UserName).Count() != 0;
             bool userIsTaken = mongoDatabase.GetCollection<Account>("AccountInfo").Find(a => a.UserName == UserName) == null;
 
-            if(userIsTaken)
+            if (userIsTaken)
             {
                 ModelState.AddModelError("UserName", "UserName is taken");
             }
 
             //ensures that file is an image
-            if (ProfPicPath.ContentType.ToString() != "image/png" &&
-                ProfPicPath.ContentType.ToString() != "image/jpeg" &&
-                ProfPicPath.ContentType.ToString() != "image/jpg"
-                )
-            {
-                ModelState.AddModelError("ProfPicPath", "Image MUST be a png or jpeg (jpg)");
-            }
+            //if (ProfPicPath.ContentType.ToString() != "image/png" &&
+            //    ProfPicPath.ContentType.ToString() != "image/jpeg" &&
+            //    ProfPicPath.ContentType.ToString() != "image/jpg"
+            //    )
+            //{
+            //    ModelState.AddModelError("ProfPicPath", "Image MUST be a png or jpeg (jpg)");
+            //}
 
-            if(Regex.Match(UserName, @"\s").Success)
+            if (Regex.Match(UserName, @"\s").Success)
             {
                 ModelState.AddModelError("UserName", "UserName may not contain spaces because it ruins file structure");
             }
 
             //Defaults Displayname to username if it was left blank
             DisplayName = string.IsNullOrWhiteSpace(DisplayName) ? UserName : DisplayName;
-            
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                if(ProfPicPath != null)
+                ////Grabs extension from image
+                //var match = Regex.Match(ProfPicPath.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
+                //string ImageExtension = match.Groups["extension"].Value;
+                ////constructs path for account image
+                //string pathForImage = $"~/Images/Users/{UserName}/Profile/ProfilePicture" + ImageExtension;
+                ////for local copy of image
+                //string pathForCopy = $"wwwroot/Images/Users/{UserName}/Profile/ProfilePicture" + ImageExtension;
+
+                //Directory.CreateDirectory($"wwwroot/Images/Users/{UserName}/Profile/");
+
+                ////saves Image
+                //using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
+                //{
+
+                //    ProfPicPath.CopyTo(stream);
+                //}
+
+                Account account = new Account()
                 {
-                    //Grabs extension from image
-                    var match = Regex.Match(ProfPicPath.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
-                    string ImageExtension = match.Groups["extension"].Value;
-                    //constructs path for account image
-                    string pathForImage = $"~/Images/Users/{UserName}/Profile/ProfilePicture" + ImageExtension;
-                    //for local copy of image
-                    string pathForCopy = $"wwwroot/Images/Users/{UserName}/Profile/ProfilePicture" + ImageExtension;
+                    DisplayName = DisplayName,
+                    UserName = UserName,
+                    PhoneNumber = PhoneNumber,
+                    Password = newPassword,
+                    Email = Email,
+                };
 
-                    Directory.CreateDirectory($"wwwroot/Images/Users/{UserName}/Profile/");
-
-                    //saves Image
-                    using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
-                    {
-                        
-                        ProfPicPath.CopyTo(stream);
-                    }
-
-                    Account account = new Account()
-                    {
-                        DisplayName = DisplayName,
-                        UserName = UserName,
-                        PhoneNumber = PhoneNumber,
-                        Password = Password,
-                        Email = Email,
-                        ProfPicPath = pathForImage
-                    };
-
-                    mongoDatabase = GetMongoDatabase();
-                    mongoDatabase.GetCollection<Account>("AccountInfo").InsertOne(account);
-                    //SessionVars.AccountTesting.Add(account);
-                    SessionVars.ActiveAcount = account;
-                }
+                mongoDatabase = GetMongoDatabase();
+                mongoDatabase.GetCollection<Account>("AccountInfo").InsertOne(account);
+                //SessionVars.AccountTesting.Add(account);
+                SessionVars.ActiveAcount = account;
                 return Redirect("/");
 
             }
@@ -189,5 +184,20 @@ namespace ProjectGecko.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult LogIn(string UserName, string Password)
+        {
+            Account LoginAttempt = Account.GetAccount(UserName);
+            if (LoginAttempt.Password == Password)
+            {
+                SessionVars.ActiveAcount = LoginAttempt;
+                return Redirect("/");
+            }
+            else
+            {
+                ModelState.AddModelError("Password", "Password Entered was incorrect");
+                return View("LoginSignUp");
+            }
+        }
     }
 }

@@ -16,10 +16,13 @@
 <h2>Profiles</h2>
 <div class="profileList">
     <div class="searchProfiles">
-        @foreach (Account account in ViewBag.Accounts)
+        @if (ViewBag.Accounts != null)
         {
-            <img src="@Url.Content(account.ProfPicPath)"/> 
-            <p>@Account.GetAccount(account.DisplayName)</p>
+            @foreach (Account account in ViewBag.Accounts)
+            {
+                <img src="@Url.Content(account.ProfPicPath)" class="ProfilePicture"/> 
+                <p>@account.DisplayName</p>
+            }
         }
     </div>
 </div>
@@ -27,10 +30,14 @@
 <h2>Artwork</h2>
 <div class="artworkList">
     <div class="searchArtwork">
-        @foreach (Post post in ViewBag.Posts)
+        @if (ViewBag.Posts != null)
         {
-            <p>@post.Title</p>
-            <p>@Account.GetAccount(post.PosterID)</p>
+            @foreach (Post post in ViewBag.Posts)
+            {
+                <p>@post.Title</p>
+                <p>@Account.GetAccount(post.PosterID).DisplayName</p>
+                <img src="@Url.Content(post.ImagePaths[0])" class="PostListingImage"/> 
+            }
         }
     </div>
 </div>
