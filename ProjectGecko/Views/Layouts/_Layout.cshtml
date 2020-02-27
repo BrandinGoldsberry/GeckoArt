@@ -8,11 +8,22 @@
 </head>
 <body>
     <header>
+        <h1 class="SiteTitle">GeckoSketch</h1>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-            </div>
+            
         </nav>
     </header>
+    <div class="SideBar">
+        @if(ProjectGecko.SessionVars.ActiveAcount != null)
+        {
+        <p class="ProfileNameSmall">@ProjectGecko.SessionVars.ActiveAcount.DisplayName</p>
+        <img src=@Url.Content(ProjectGecko.SessionVars.ActiveAcount.ProfPicPath) alt="Alternate Text" class="ProfilePicSmall"/>
+        }
+        else
+        {
+            @Html.ActionLink("Login/SignUp", "LogInSignUp", "Home", null, new { @class="navButton", @id = "LogInButton" })
+        }
+    </div>
     <div class="container">
         @RenderBody()
     </div>

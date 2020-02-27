@@ -6,38 +6,46 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
 @if (Model != null)
 {
-    <p>@Model.DisplayName</p>
-    <p>@Model.UserName</p>
-    <p>@Model.Email</p>
-    <img src=@Url.Content(Model.ProfPicPath) alt="Alternate Text" runat="server" />
-
-    <div class="posts">
+    <div class="postcontainer">
+        @{ int postInt = 0; }
         @foreach (Post post in ViewBag.Posts)
         {
-            <p>@post.Title</p>
-            <p>@Account.GetAccount(post.PosterID).DisplayName</p>
-            @foreach (string item in post.ImagePaths)
-            {
-                <img class="PostListingImage" src=@Url.Content(item) alt="Alternate Text" />
-            }
+            <div class="post">
+                <a class="prev" onclick="plusSlides(-1, @postInt)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, @postInt)">&#10095;</a>
+                <div class="postimages">
+                    @foreach (string item in post.ImagePaths)
+                    {
+                        <img class="PostListingImage" src=@Url.Content(item) alt="Alternate Text" />
+                    }
+                </div>
+                <p class="PostTitle">@post.Title by <span class="PosterName">@Account.GetAccount(post.PosterID).DisplayName</span></p>
+            </div>
+            { postInt += 1; }
         }
     </div>
 }
 else
 {
-<div class="posts">
-    @foreach (Post post in ViewBag.Posts)
-    {
-        <p>@post.Title</p>
-        <p>@Account.GetAccount(post.PosterID).DisplayName</p>
-        @foreach (string item in post.ImagePaths)
+    <div class="postcontainer">
+        @{ int postInt = 0; }
+        @foreach (Post post in ViewBag.Posts)
         {
-            <img class="PostListingImage" src=@Url.Content(item) alt="Alternate Text" />
+            <div class="post">
+                <a class="prev" onclick="plusSlides(-1, @postInt)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, @postInt)">&#10095;</a>
+                <div class="postimages">
+                    @foreach (string item in post.ImagePaths)
+                    {
+                        <img class="PostListingImage" src=@Url.Content(item) alt="Alternate Text" />
+                    }
+                </div>
+                <p class="PostTitle">@post.Title by <span class="PosterName">@Account.GetAccount(post.PosterID).DisplayName</span></p>
+            </div>
+            { postInt += 1; }
         }
-    }
-</div>
+    </div>
 }
+<script src="~/Js/SlideShowController.js"></script>

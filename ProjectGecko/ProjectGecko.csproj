@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Images\Users\" />
-    <Folder Include="wwwroot\Js\" />
     <Folder Include="wwwroot\CSS\" />
   </ItemGroup>
 
