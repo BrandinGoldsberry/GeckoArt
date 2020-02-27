@@ -37,6 +37,7 @@ namespace ProjectGecko.Models
         public string PhoneNumber { get; set; }
 
         //Email for contact
+        [Required]
         [RegularExpression(@"((\w|\d)+)@((\w|\d){2,})\.((\w|\d){2,})")]
         [DataType(DataType.EmailAddress)]
         public string  Email { get; set; }
