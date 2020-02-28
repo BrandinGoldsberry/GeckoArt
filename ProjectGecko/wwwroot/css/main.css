@@ -36,12 +36,13 @@ header {
 }
 
 .PostListingImage {
-    max-height: 300px;
+    height: 300px;
 }
 
 .container {
-    float: left;
-    display: inline;
+    /*float: left;*/
+    margin-left: 20%;
+    margin-right: 10%;
 }
 
 .ProfilePicSmall {
@@ -49,11 +50,11 @@ header {
     height: 100px;
     -o-object-fit: cover;
     object-fit: cover;
+    border: 1px solid black;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
     /*background-color: #CCCCCC;*/
-    border: 1px solid black;
 }
 
 .SideBar {
@@ -64,31 +65,79 @@ header {
 }
 
 .postcontainer {
-    display: flex;
+    /*display: flex;
     -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
+    flex-wrap: wrap;*/
 }
 
 .post {
-    border: 1px solid gray;
+    /*border: 1px solid gray;*/
     /*display: inline;
     white-space: nowrap;*/
+    margin:  0px 5px 0px 5px;
+    height: 300px;
+    padding: 5px;
+    position: relative;
 }
 
 .PostTitle {
-    background-color: white;
-    opacity: 0;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    background-color: #63EB9C;
+    border: 2px solid #63EB9C;
+    border-radius: 2px;
     position: absolute;
+    top: 20px;
+    left: 20px;
     -moz-transition: opacity 0.2s;
     -o-transition: opacity 0.2s;
     -webkit-transition: opacity 0.2s;
-    transition: opacity 0.2s;
+    -webkit-box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
+    -moz-box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
+    box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
+    z-index: 1;
 }
 
-.postimages:hover + p {
+.ProfilePicOverPost {
+    width: 50px;
+    height: 50px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border: 1px solid black;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    background-color: #63EB9C;
+    border: 2px solid #63EB9C;
+    border-radius: 50%;
+    -moz-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
+    -webkit-box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
+    -moz-box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
+    box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
+    z-index: 1;
+    position: absolute;
+    top: 72px;
+    left: 20px;
+}
+
+.InfoOverImage {
+    opacity: 0;
+    transition: opacity 0.2s;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
+    box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
+}
+
+.post:hover > .InfoOverImage {
     opacity: 1;
 }
+
 
 .navButton {
     text-decoration: none;
@@ -118,4 +167,16 @@ header {
 .next {
     right: 0;
     border-radius: 3px 0 0 3px;
+}
+
+.row {
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
 }

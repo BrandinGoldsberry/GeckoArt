@@ -12,7 +12,18 @@ namespace ProjectGecko.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Posts = Post.GetAllPosts().OrderByDescending(p => p.PostID).ToList();
+            int postcount = 0;
+            int groupNum = 0;
+            ViewBag.Posts = Post.GetAllPosts().OrderByDescending(p => p.PostID).GroupBy(x =>
+            {
+                if(postcount % 4 == 0)
+                {
+                    groupNum++;
+                }
+                postcount++;
+                return groupNum;
+            });
+
             if(SessionVars.ActiveAcount != null)
             {
                 return View(SessionVars.ActiveAcount);
