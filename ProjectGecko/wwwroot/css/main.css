@@ -4,6 +4,7 @@
 
 html, body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 html {
@@ -261,4 +262,14 @@ form p {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+}
+
+#ImageUploadLabel {
+    cursor: pointer;
+}
+
+#ImageUploader {
+    position: absolute !important;
+    z-index: -100 !important;
+    opacity: 0 !important;
 }

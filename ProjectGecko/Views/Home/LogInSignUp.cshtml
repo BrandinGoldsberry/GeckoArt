@@ -36,9 +36,12 @@
                     <p>Username:</p>
                     @Html.EditorFor(m => m.UserName)
                     @Html.ValidationMessageFor(m => m.UserName)
-
-                    <input type="file" name="profileImage" value="" id="ImageUploader"/>
-                    <img id="ImagePreviewer" src="" alt="" />
+                    <p>Profile Image</p>
+                    <label id="ImageUploadLabel" for="ImageUploader">
+                        <img id="ImagePreviewer" src="" alt="">
+                    </label>
+                    <input type="file" name="profileImage" value="" id="ImageUploader">
+                    <script src="~/Js/ImageUploadPreview.js"></script>
 
                 </div>
                 <div id="SignUpRight">
