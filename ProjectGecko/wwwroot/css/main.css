@@ -27,6 +27,25 @@ header {
     height: 100px;
 }
 
+input[type=text], input[type=password], input[type=email], input[type=tel], input[type=submit] {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 12px 20px;
+    margin: 8px 0px;
+}
+
+input[type=submit] {
+    background-color: #63EB9C;
+    cursor: pointer;
+}
+
+form p {
+    font-size: 16px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -75,7 +94,7 @@ header {
     /*border: 1px solid gray;*/
     /*display: inline;
     white-space: nowrap;*/
-    margin:  0px 5px 0px 5px;
+    margin: 0px 5px 0px 5px;
     height: 300px;
     padding: 5px;
     position: relative;
@@ -147,6 +166,9 @@ header {
     border-radius: 5px;
     border: 3px solid #4294FF;
     font-size: 20px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .prev, .next {
@@ -179,4 +201,64 @@ header {
     -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
+}
+
+.LoginFormWrapper {
+    width: 80%;
+    margin: 5px auto;
+}
+
+    .LoginFormWrapper h2 {
+        text-align: center;
+    }
+
+    .LoginFormWrapper div {
+        margin: 2px auto;
+    }
+
+.LogIn {
+    width: 50%;
+}
+
+    .LogIn input {
+        width: 100%;
+    }
+
+.SignUp input {
+    width: 100%;
+}
+
+    .SignUp input[type=submit] {
+        width: 50%;
+        margin: 0px 25%;
+        /*display: inline-block;*/
+    }
+
+#SignUpLeft, #SignUpRight {
+    /*display: inline-block;*/  
+    width: 35%;
+}
+
+#SignUpLeft {
+    float: left;
+}
+
+#SignUpRight {
+    float: right;
+}
+
+#SubmitSeparator {
+    height: 100%;
+    overflow: hidden;
+}
+
+#ImagePreviewer {
+    width: 200px;
+    height: 200px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border: 1px solid black;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
 }

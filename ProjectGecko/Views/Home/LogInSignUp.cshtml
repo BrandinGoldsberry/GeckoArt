@@ -4,45 +4,57 @@
     ViewData["Title"] = "LogInSignUp";
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
+<div class="LoginFormWrapper">
+    <h2>Log In</h2>
+    <div class="LogIn">
+        @using (Html.BeginForm("LogIn", "User", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true);
+            <p>Username:</p>
+            @Html.EditorFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
 
-<h1>LogInSignUp</h1>
+            <p>Password:</p>
+            @Html.EditorFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+            <br />
+            <input type="submit" />
+        }
+    </div>
+    <br />
+    <h2>Sign Up</h2>
+    <div class="SignUp">
+        @using (Html.BeginForm("CreateAccount", "User", FormMethod.Post))
+        {
+            <div id="SubmitSeparator">
+                <div id="SignUpLeft">
+                    <p>Display Name:</p>
+                    @Html.EditorFor(m => m.DisplayName)
+                    @Html.ValidationMessageFor(m => m.DisplayName)
 
-<h2>Log In</h2>
-<div class="LogIn">
-    @using (Html.BeginForm("LogIn", "User", FormMethod.Post))
-    {
-        @Html.ValidationSummary(true);
-        <p>Username: <span>@Html.EditorFor(m => m.UserName)</span></p>
-        <p>@Html.ValidationMessageFor(m => m.UserName)</p>
+                    @*<p>The name that your account is associated with</p>*@
+                    <p>Username:</p>
+                    @Html.EditorFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
 
-        <p>Password: <span>@Html.EditorFor(m => m.Password)</span></p>
-        <p>@Html.ValidationMessageFor(m => m.Password)</p>
+                    <input type="file" name="profileImage" value="" id="ImageUploader"/>
+                    <img id="ImagePreviewer" src="" alt="" />
 
-        <input type="submit" />
-    }
+                </div>
+                <div id="SignUpRight">
+                    <p>Password:</p>
+                    @Html.EditorFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                    @*<p>The name to be publicly displayed</p>*@
+
+                    <p>Phone Number:</p>
+                    @Html.EditorFor(m => m.PhoneNumber)
+
+                    <p>Email:</p>
+                    @Html.EditorFor(m => m.Email)
+                </div>
+            </div>
+            <input type="submit" />
+        }
+    </div>
 </div>
-
-<h2>Sign Up</h2>
-<div class="SignUp">
-    @using (Html.BeginForm("CreateAccount", "User", FormMethod.Post))
-    {
-        <p>The name to be publicly displayed</p>
-        <p>Display Name: <span>@Html.EditorFor(m => m.DisplayName)</span></p>
-        <p>@Html.ValidationMessageFor(m => m.DisplayName)</p>
-
-        <p>The name that your account is associated with</p>
-        <p>Username: <span>@Html.EditorFor(m => m.UserName)</span></p>
-        <p>@Html.ValidationMessageFor(m => m.UserName)</p>
-
-        <p>Password: <span>@Html.EditorFor(m => m.Password)</span></p>
-        <p>@Html.ValidationMessageFor(m => m.Password)</p>
-
-        <p>Phone Number: <span>@Html.EditorFor(m => m.PhoneNumber)</span></p>
-
-        <p>Email: <span>@Html.EditorFor(m => m.Email)</span></p>
-
-        <input type="submit" />
-    }
-</div>
-
-
