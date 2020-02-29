@@ -18,7 +18,7 @@
             @Html.EditorFor(m => m.Password)
             @Html.ValidationMessageFor(m => m.Password)
             <br />
-            <input type="submit" />
+            <input type="submit" value="Log In" />
         }
     </div>
     <br />
@@ -27,37 +27,34 @@
         @using (Html.BeginForm("CreateAccount", "User", FormMethod.Post))
         {
             <div id="SubmitSeparator">
-                <div id="SignUpLeft">
-                    <p>Display Name:</p>
-                    @Html.EditorFor(m => m.DisplayName)
-                    @Html.ValidationMessageFor(m => m.DisplayName)
+                <p>Profile Image</p>
+                <label id="ImageUploadLabel" for="ImageUploader">
+                    <img id="ImagePreviewer" src="~/Images/Users/Default/defaultprofile.png" alt="">
+                </label>
+                <p id="ImagePreviewerLabel">Choose Image</p>
+                <input type="file" name="profileImage" value="" id="ImageUploader">
+                <script src="~/Js/ImageUploadPreview.js"></script>
+                <p>Display Name:</p>
+                @Html.EditorFor(m => m.DisplayName)
+                @Html.ValidationMessageFor(m => m.DisplayName)
 
-                    @*<p>The name that your account is associated with</p>*@
-                    <p>Username:</p>
-                    @Html.EditorFor(m => m.UserName)
-                    @Html.ValidationMessageFor(m => m.UserName)
-                    <p>Profile Image</p>
-                    <label id="ImageUploadLabel" for="ImageUploader">
-                        <img id="ImagePreviewer" src="" alt="">
-                    </label>
-                    <input type="file" name="profileImage" value="" id="ImageUploader">
-                    <script src="~/Js/ImageUploadPreview.js"></script>
+                @*<p>The name that your account is associated with</p>*@
+                <p>Username:</p>
+                @Html.EditorFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
 
-                </div>
-                <div id="SignUpRight">
-                    <p>Password:</p>
-                    @Html.EditorFor(m => m.Password)
-                    @Html.ValidationMessageFor(m => m.Password)
-                    @*<p>The name to be publicly displayed</p>*@
+                <p>Password:</p>
+                @Html.EditorFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+                @*<p>The name to be publicly displayed</p>*@
 
-                    <p>Phone Number:</p>
-                    @Html.EditorFor(m => m.PhoneNumber)
+                <p>Phone Number:</p>
+                @Html.EditorFor(m => m.PhoneNumber)
 
-                    <p>Email:</p>
-                    @Html.EditorFor(m => m.Email)
-                </div>
+                <p>Email:</p>
+                @Html.EditorFor(m => m.Email)
             </div>
-            <input type="submit" />
+            <input type="submit" value="Sign Up!" />
         }
     </div>
 </div>

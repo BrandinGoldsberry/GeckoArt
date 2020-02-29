@@ -148,6 +148,9 @@ form p {
 
 .InfoOverImage {
     opacity: 0;
+    -moz-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
     transition: opacity 0.2s;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
     -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
@@ -182,6 +185,9 @@ form p {
     color: #65D0EB;
     font-weight: bold;
     font-size: 18px;
+    -moz-transition: 0.6s ease;
+    -o-transition: 0.6s ease;
+    -webkit-transition: 0.6s ease;
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
@@ -262,6 +268,28 @@ form p {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+}
+
+#ImagePreviewerLabel {
+    position: relative;
+    bottom: 113px;
+    left: 55px;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+    -moz-transition: opacity 0.1s;
+    -o-transition: opacity 0.1s;
+    -webkit-transition: opacity 0.1s;
+    transition: opacity 0.1s;
+    text-shadow: 4px 4px 19px rgba(150, 150, 150, 1);
+}
+
+#ImageUploadLabel:hover + #ImagePreviewerLabel {
+    opacity: 1;
+}
+
+#ImagePreviewerLabel:hover {
+    opacity: 1;
 }
 
 #ImageUploadLabel {
