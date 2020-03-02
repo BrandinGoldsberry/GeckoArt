@@ -23,36 +23,40 @@ namespace ProjectGecko.Models
 
         public Post()
         {
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            //var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
             //return user by id
-            long idCount = mongoClient.GetCollection<Post>("Posts").CountDocuments(a => true);
+            string manualCommand = "{find: 'Posts'}";
+            var cmd = new JsonCommand<BsonDocument>(manualCommand);
+            var result = DatabaseConnection.RunCommand(cmd);
+            var bsonList = result.Elements.ElementAt(0).Value.AsBsonDocument.Elements.ElementAt(0).Value.AsBsonArray.ToList();
+            long biggest = 0;
+            foreach (var item in bsonList)
+            {
+                long postId = item.AsBsonDocument.GetElement(1).Value.ToInt64();
+                if (postId > biggest)
+                {
+                    biggest = postId;
+                }
+            }
+            //long idCount = mongoClient.GetCollection<Post>("Posts").Aggregate(def);
 
-            PostID = idCount;
+            PostID = biggest;
             Comments = new List<Comment>();
         }
 
         public static Post GetPost(long Id)
         {
-            //connect to mongodb
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
-            //return user by id
-            return mongoClient.GetCollection<Post>("Posts").Find(a => a.PostID == Id).First();
+            return DatabaseConnection.GetPost(Id);
         }
 
         public Account GetPostAccount()
         {
-            //connect to mongodb
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
-            //return user by id
-            return mongoClient.GetCollection<Account>("AccountInfo").Find(a => a.AccountID == PosterID).First();
+            return DatabaseConnection.GetAccount(PosterID);
         }
 
         public static List<Post> GetAllPosts()
         {
-            //connect to mongodb
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
-            //return user by id
-            return mongoClient.GetCollection<Post>("Posts").Find(x => true).ToList();
+            return DatabaseConnection.GetAllPosts(false);
         }
     }
 }

@@ -29,9 +29,22 @@ namespace ProjectGecko.Models
 
         public Commission()
         {
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
-            long idCount = mongoClient.GetCollection<Account>("Commission").CountDocuments(a => true);
-            CommissionID = idCount;
+            string manualCommand = "{find: 'Posts'}";
+            var cmd = new JsonCommand<BsonDocument>(manualCommand);
+            var result = DatabaseConnection.RunCommand(cmd);
+            var bsonList = result.Elements.ElementAt(0).Value.AsBsonDocument.Elements.ElementAt(0).Value.AsBsonArray.ToList();
+            long biggest = 0;
+            foreach (var item in bsonList)
+            {
+                long comId = item.AsBsonDocument.GetElement(1).Value.ToInt64();
+                if (comId > biggest)
+                {
+                    biggest = comId;
+                }
+            }
+            //long idCount = mongoClient.GetCollection<Post>("Posts").Aggregate(def);
+
+            CommissionID = biggest;
         }
 
 

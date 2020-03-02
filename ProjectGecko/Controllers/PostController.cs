@@ -74,8 +74,7 @@ namespace ProjectGecko.Controllers
 
                     //System.Diagnostics.Debug.Write(userid);
 
-                    var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet").GetDatabase("AccountDB");
-                    mongoClient.GetCollection<Post>("Posts").InsertOne(newPost);
+                    DatabaseConnection.InsertPost(newPost);
 
                     return Redirect($"/{newPost.PostID}/ShowPost");
                 }
@@ -87,8 +86,7 @@ namespace ProjectGecko.Controllers
                         PosterID = userid
                     };
 
-                    var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet").GetDatabase("AccountDB");
-                    mongoClient.GetCollection<Post>("Posts").InsertOne(newPost);
+                    DatabaseConnection.InsertPost(newPost);
 
                     return Redirect($"/{newPost.PostID}/ShowPost");
                 }

@@ -14,12 +14,6 @@ namespace ProjectGecko.Controllers
 {
     public class UserController : Controller
     {
-        private IMongoDatabase mongoDatabase;
-        public IMongoDatabase GetMongoDatabase()
-        {
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet");
-            return mongoClient.GetDatabase("AccountDB");
-        }
         public IActionResult ShowFeed()
         {
             return View();
@@ -58,8 +52,7 @@ namespace ProjectGecko.Controllers
             }
             else
             {
-                var mongoDatabase = GetMongoDatabase();
-                bool userIsTaken = mongoDatabase.GetCollection<Account>("AccountInfo").Find(a => a.UserName == UserName) == null;
+                bool userIsTaken = DatabaseConnection.GetAccount(UserName) != null;
 
                 if (userIsTaken)
                 {
@@ -88,7 +81,7 @@ namespace ProjectGecko.Controllers
                                 Email = Email,
                                 ProfPicPath = pathForImage
                             };
-                            mongoDatabase.GetCollection<Account>("AccountInfo").InsertOne(account);
+                            DatabaseConnection.InsertAccount(account);
                             SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
@@ -104,7 +97,7 @@ namespace ProjectGecko.Controllers
                                 Email = Email,
                                 ProfPicPath = pathForImage
                             };
-                            mongoDatabase.GetCollection<Account>("AccountInfo").InsertOne(account);
+                            DatabaseConnection.InsertAccount(account);
                             SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
@@ -135,7 +128,7 @@ namespace ProjectGecko.Controllers
                                 Email = Email,
                                 ProfPicPath = pathForImage
                             };
-                            mongoDatabase.GetCollection<Account>("AccountInfo").InsertOne(account);
+                            DatabaseConnection.InsertAccount(account);
                             SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
@@ -209,8 +202,7 @@ namespace ProjectGecko.Controllers
 
                     if (newCommission.CommissionerID == commissionerID && newCommission.CommissioneeID == commissioneeID && newCommission.ImagePaths == pathList && newCommission.Description == description)
                     {
-                        var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet").GetDatabase("AccountDB");
-                        mongoClient.GetCollection<Commission>("Commissions").InsertOne(newCommission);
+                        DatabaseConnection.InsertCommision(newCommission);
 
                         //return Redirect($"/{newCommission.PostID}/ShowPost");
                         return Redirect("ShowFeed");

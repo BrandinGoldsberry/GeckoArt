@@ -37,7 +37,7 @@ namespace ProjectGecko.Models
         public string PhoneNumber { get; set; }
 
         //Email for contact
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         [RegularExpression(@"((\w|\d)+)@((\w|\d){2,})\.((\w|\d){2,})")]
         [DataType(DataType.EmailAddress)]
         public string  Email { get; set; }
@@ -52,25 +52,32 @@ namespace ProjectGecko.Models
 
         public Account()
         {
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
-            long idCount = mongoClient.GetCollection<Account>("AccountInfo").CountDocuments(a => true);
-            AccountID = idCount;
+            string manualCommand = "{find: 'AccountInfo'}";
+            var cmd = new JsonCommand<BsonDocument>(manualCommand);
+            var result = DatabaseConnection.RunCommand(cmd);
+            var bsonList = result.Elements.ElementAt(0).Value.AsBsonDocument.Elements.ElementAt(0).Value.AsBsonArray.ToList();
+            long biggest = 0;
+            foreach (var item in bsonList)
+            {
+                long accountId = item.AsBsonDocument.GetElement(1).Value.ToInt64();
+                if (accountId > biggest)
+                {
+                    biggest = accountId;
+                }
+            }
+            //long idCount = mongoClient.GetCollection<Post>("Posts").Aggregate(def);
+
+            AccountID = biggest;
         }
 
         public static Account GetAccount(long Id)
         {
-            //connect to mongodb
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
-            //return user by id
-            return mongoClient.GetCollection<Account>("AccountInfo").Find(a => a.AccountID == Id).First();
+            return DatabaseConnection.GetAccount(Id);
         }
 
         public static Account GetAccount(string UserName)
         {
-            //connect to mongodb
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
-            //return user by id
-            return mongoClient.GetCollection<Account>("AccountInfo").Find(a => a.UserName == UserName).First();
+            return DatabaseConnection.GetAccount(UserName);
         }
     }
 }

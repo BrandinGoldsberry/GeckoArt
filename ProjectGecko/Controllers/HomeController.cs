@@ -12,19 +12,14 @@ namespace ProjectGecko.Controllers
     {
         public IActionResult Index()
         {
-            int postcount = 0;
-            int groupNum = 0;
-            ViewBag.Posts = Post.GetAllPosts().OrderByDescending(p => p.PostID).GroupBy(x =>
-            {
-                if(postcount % 4 == 0)
-                {
-                    groupNum++;
-                }
-                postcount++;
-                return groupNum;
-            });
+            ViewBag.Posts = DatabaseConnection.GetAllPosts(true);
 
-            if(SessionVars.ActiveAcount != null)
+            ////connect to mongodb
+            //var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
+            ////return user by id
+            //ViewBag.Posts = mongoClient.GetCollection<Post>("Posts").Find(x => true).ToList();
+
+            if (SessionVars.ActiveAcount != null)
             {
                 return View(SessionVars.ActiveAcount);
             }
@@ -49,9 +44,8 @@ namespace ProjectGecko.Controllers
         [HttpPost]
         public IActionResult Search(string SearchBar)
         {
-            var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority&connect=replicaSet").GetDatabase("AccountDB");
-            ViewBag.Posts = mongoClient.GetCollection<Post>("Posts").Find(m => m.Title.Contains(SearchBar)).ToList();
-            ViewBag.Accounts = mongoClient.GetCollection<Account>("AccountInfo").Find(m => m.UserName.Contains(SearchBar) || m.DisplayName.Contains(SearchBar)).ToList();
+            ViewBag.Posts = DatabaseConnection.FindPosts(SearchBar);
+            ViewBag.Accounts = DatabaseConnection.FindAccounts(SearchBar);
             return View();
         }
     }

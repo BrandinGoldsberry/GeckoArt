@@ -27,6 +27,8 @@ namespace ProjectGecko
                 app.UseDeveloperExceptionPage();
             }
 
+            DatabaseConnection.DatabaseConnect();
+
             app.UseStaticFiles();
 
             app.UseMvc
