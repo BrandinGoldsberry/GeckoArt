@@ -59,15 +59,53 @@ form p {
     height: 300px;
 }
 
+.PostListing {
+    text-decoration: none;
+}
+
 .container {
     /*float: left;*/
     margin-left: 20%;
     margin-right: 10%;
 }
 
+.UserListing img, .UserDetails {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.UserDetails {
+    vertical-align: top;
+    margin: 5px;
+}
+
+.UserDetails p {
+    font-size: 30px;
+}
+
+.UserDetails .UserRef {
+    color: darkgray;
+}
+
 .ProfilePicSmall {
     width: 100px;
     height: 100px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border: 1px solid black;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    /*background-color: #CCCCCC;*/
+}
+
+.ProfileName {
+    font-size: 20px;
+}
+
+.ProfilePicture {
+    width: 200px;
+    height: 200px;
     -o-object-fit: cover;
     object-fit: cover;
     border: 1px solid black;

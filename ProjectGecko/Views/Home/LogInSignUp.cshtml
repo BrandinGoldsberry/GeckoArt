@@ -53,6 +53,7 @@
 
                 <p>Email:</p>
                 @Html.EditorFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
             </div>
             <input type="submit" value="Sign Up!" />
         }
