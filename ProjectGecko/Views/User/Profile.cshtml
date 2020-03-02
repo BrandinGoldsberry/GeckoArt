@@ -1,0 +1,14 @@
+﻿@using ProjectGecko.Models
+@model Account
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<img src="@Url.Content(Model.ProfPicPath)"/>
+<h3>@Model.DisplayName</h3>
+<p>Needs to display a button that takes to Commissions page</p>
+<p>@Model.Biography</p>
+
+<p>Needs to display profile specific art</p>
