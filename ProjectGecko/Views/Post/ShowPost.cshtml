@@ -26,7 +26,7 @@
         <div class="UserCommentEnter">
             @using (Html.BeginForm("Comment", "User", FormMethod.Post))
             {
-                <textarea type="text" name="CommentText">"What do you think?"</textarea>
+                <textarea type="text" name="CommentText"></textarea>
                 <input type="hidden" name="postId" value=@Model.PostID />
                 <input type="hidden" name="user" value=@SessionVars.ActiveAcount.AccountID />
                 <input type="submit" value="Comment" />
@@ -35,19 +35,21 @@
     }
     else
     {
-        <p>Log In to comment</p>
+        <p class="LogInWarning">Log In to comment</p>
     }
     <div class="PostCommentList">
         @foreach (Comment item in Model.Comments)
         {
             <div class="Comment">
-                <a>
+                @{ string accountPath = "/" + Account.GetAccount(item.CommentPoster).AccountID + "/account"; }
+                <a href=@accountPath>
                     <img class="ProfilePicSmall" src=@Url.Content(Account.GetAccount(item.CommentPoster).ProfPicPath) alt="Alternate Text" />
                 </a>
-                <a class="ProfileName">
+                <a class="ProfileName" href=@accountPath>
                     <p class="ProfileName">@Account.GetAccount(item.CommentPoster).DisplayName</p>
                 </a>
                 <p class="CommentText">@item.Text</p>
+            <hr />
             </div>
         }
     </div>

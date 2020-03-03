@@ -55,6 +55,10 @@ form p {
     line-height: 60px;
 }
 
+.PostCommentList {
+    margin: 25px 0px;
+}
+
 .postimages {
     height: 600px;
 }
@@ -141,6 +145,7 @@ form p {
     height: 300px;
     padding: 5px;
     position: relative;
+    text-decoration: none;
 }
 
 .PostTitle {
@@ -161,6 +166,8 @@ form p {
     -moz-box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
     box-shadow: 6px 8px 15px 0px rgba(50, 50, 50, 0.37);
     z-index: 1;
+    text-decoration: none;
+    color: black;
 }
 
 .ProfilePicOverPost {
@@ -197,6 +204,7 @@ form p {
     -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
     -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
     box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.37);
+    text-decoration: none
 }
 
 .post:hover > .InfoOverImage {
@@ -212,6 +220,7 @@ form p {
     border-radius: 5px;
     border: 3px solid #4294FF;
     font-size: 20px;
+    margin: 10px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -283,7 +292,13 @@ form p {
         /*display: inline-block;*/
     }
 
-.Comment a {
+.CommentText {
+    display:block;
+    vertical-align: middle;
+    font-size: 30px;
+}
+
+.Comment a{
     display: inline-block;
     text-decoration: none;
 }
@@ -293,8 +308,32 @@ form p {
     height: 100%;
 }
 
+.LogInWarning {
+    font-size: 30px;
+}
+
+.loggedInProfile {
+    margin: 10px 10px;
+}
+
 .Comment .ProfileName {
-    vertical-align: top;
+    vertical-align: bottom;
+    font-size: 25px;
+}
+
+.Comment .ProfilePicSmall {
+    width: 50px;
+    height: 50px;
+}
+
+.Comment hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+    width: 50%;
 }
 
 .UserCommentEnter {

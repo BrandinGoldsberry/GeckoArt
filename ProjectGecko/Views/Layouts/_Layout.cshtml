@@ -10,18 +10,22 @@
     <header>
         <h1 class="SiteTitle">GeckoSketch</h1>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            
+
         </nav>
     </header>
     <div class="SideBar">
-        @if(ProjectGecko.SessionVars.ActiveAcount != null)
+        @if (ProjectGecko.SessionVars.ActiveAcount != null)
         {
-        <p class="ProfileNameSmall">@ProjectGecko.SessionVars.ActiveAcount.DisplayName</p>
-        <img src=@Url.Content(ProjectGecko.SessionVars.ActiveAcount.ProfPicPath) alt="Alternate Text" class="ProfilePicSmall"/>
+            string accLink = "/" + ProjectGecko.SessionVars.ActiveAcount.AccountID + "/account";
+            <a class="loggedInProfile" href=@accLink>
+                <p class="ProfileNameSmall">@ProjectGecko.SessionVars.ActiveAcount.DisplayName</p>
+                <img src=@Url.Content(ProjectGecko.SessionVars.ActiveAcount.ProfPicPath) alt="Alternate Text" class="ProfilePicSmall" />
+            </a>
         }
         else
         {
-            @Html.ActionLink("Login/SignUp", "LogInSignUp", "Home", null, new { @class="navButton", @id = "LogInButton" })
+            @Html.ActionLink("Login/SignUp", "LogInSignUp", "Home", null, new { @class = "navButton", @id = "LogInButton" })
+            @Html.ActionLink("Search", "Search", "Home", null, new { @class = "navButton", @id = "SearchButton" })
         }
     </div>
     <div class="container">

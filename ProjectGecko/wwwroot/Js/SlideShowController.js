@@ -9,25 +9,25 @@ for (var i = 1; i < postList.length; i++) {
 
 function plusSlides(indexer) {
     if (indexer < 0 && pageNumberHolder > 0) {
+        console.log(indexer);
+        console.log(pageNumberHolder);
         pageNumberHolder += indexer;
         for (var i = 0; i < postList.length; i++) {
             var curPost = postList.item(i);
-            console.log(curPost.style);
             curPost.style.display = "none";
         }
         postList.item(pageNumberHolder).style.display = "block";
     }
 
-    if (indexer > 0 && pageNumberHolder < postList.length) {
+    if (indexer > 0 && pageNumberHolder < postList.length - 1) {
+        console.log(indexer);
+        console.log(pageNumberHolder);
         pageNumberHolder += indexer;
         for (var i = 0; i < postList.length; i++) {
             var curPost = postList.item(i);
-            console.log(curPost.style);
             curPost.style.display = "none";
         }
         postList.item(pageNumberHolder).style.display = "block";
     }
-    console.log(indexer);
-    console.log(pageNumberHolder);
 }
 
