@@ -84,5 +84,20 @@ namespace ProjectGecko
         {
             accountDatabase.GetCollection<Post>("Posts").InsertOne(p);
         }
+
+        public static void UpdatePost(Post p)
+        {
+            accountDatabase.GetCollection<Post>("Posts").ReplaceOne(X => X.PostID == p.PostID, p);
+        }
+        
+        public static void UpdateAccount(Account a)
+        {
+            accountDatabase.GetCollection<Account>("AccountInfo").ReplaceOne(X => X.AccountID == a.AccountID, a);
+        }
+        
+        public static void UpdateCommission(Commission c)
+        {
+            accountDatabase.GetCollection<Commission>("Commissions").ReplaceOne(X => X.CommissionID == c.CommissionID, c);
+        }
     }
 }

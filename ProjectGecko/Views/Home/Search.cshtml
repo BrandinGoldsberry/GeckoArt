@@ -13,30 +13,39 @@
     <input type="submit" />
 }
 
-<h2>Profiles</h2>
 <div class="profileList">
     <div class="searchProfiles">
         @if (ViewBag.Accounts != null)
         {
+            <h2>Profiles</h2>
             @foreach (Account account in ViewBag.Accounts)
             {
-                <img src="@Url.Content(account.ProfPicPath)" class="ProfilePicture"/> 
-                <p>@account.DisplayName</p>
+                string accountLink = account.AccountID + "/account";
+                <a class="UserListing" href=@accountLink>
+                    <img src="@Url.Content(account.ProfPicPath)" class="ProfilePicSmall" />
+                    <div class="UserDetails">
+                        <p class="ProfileName">@account.DisplayName</p>
+                        <p class="UserRef">@account.UserName</p>
+                    </div>
+                </a>
             }
         }
     </div>
 </div>
 
-<h2>Artwork</h2>
 <div class="artworkList">
     <div class="searchArtwork">
         @if (ViewBag.Posts != null)
         {
+            <h2>Artwork</h2>
             @foreach (Post post in ViewBag.Posts)
             {
-                <p>@post.Title</p>
-                <p>@Account.GetAccount(post.PosterID).DisplayName</p>
-                <img src="@Url.Content(post.ImagePaths[0])" class="PostListingImage"/> 
+                string postLink = post.PostID + "/" + "ShowPost";
+                <a class="PostListing" href=@postLink>
+                    <p>@post.Title</p>
+                    <p>@Account.GetAccount(post.PosterID).DisplayName</p>
+                    <img src="@Url.Content(post.ImagePaths[0])" class="PostListingImage" />
+                </a>
             }
         }
     </div>

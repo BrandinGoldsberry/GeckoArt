@@ -40,7 +40,7 @@ namespace ProjectGecko.Models
             }
             //long idCount = mongoClient.GetCollection<Post>("Posts").Aggregate(def);
 
-            PostID = biggest;
+            PostID = biggest + 1;
             Comments = new List<Comment>();
         }
 

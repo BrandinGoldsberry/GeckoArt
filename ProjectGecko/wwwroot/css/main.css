@@ -28,7 +28,7 @@ header {
     height: 100px;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=tel], input[type=submit] {
+input[type=text], input[type=password], input[type=email], input[type=tel], input[type=submit], textarea {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -55,8 +55,16 @@ form p {
     line-height: 60px;
 }
 
+.postimages {
+    height: 600px;
+}
+
 .PostListingImage {
     height: 300px;
+}
+
+.PostListing {
+    text-decoration: none;
 }
 
 .container {
@@ -65,9 +73,43 @@ form p {
     margin-right: 10%;
 }
 
+.UserListing img, .UserDetails {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.UserDetails {
+    vertical-align: top;
+    margin: 5px;
+}
+
+.UserDetails p {
+    font-size: 30px;
+}
+
+.UserDetails .UserRef {
+    color: darkgray;
+}
+
 .ProfilePicSmall {
     width: 100px;
     height: 100px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border: 1px solid black;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    /*background-color: #CCCCCC;*/
+}
+
+.ProfileName {
+    font-size: 20px;
+}
+
+.ProfilePicture {
+    width: 200px;
+    height: 200px;
     -o-object-fit: cover;
     object-fit: cover;
     border: 1px solid black;
@@ -240,6 +282,24 @@ form p {
         margin: 0px 25%;
         /*display: inline-block;*/
     }
+
+.Comment a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.UserListing {
+    display: inline-block;
+    height: 100%;
+}
+
+.Comment .ProfileName {
+    vertical-align: top;
+}
+
+.UserCommentEnter {
+    /*display: inline-block;*/
+}
 
 #SignUpLeft, #SignUpRight {
     /*display: inline-block;*/  
