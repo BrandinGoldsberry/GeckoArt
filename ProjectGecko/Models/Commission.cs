@@ -44,7 +44,7 @@ namespace ProjectGecko.Models
             }
             //long idCount = mongoClient.GetCollection<Post>("Posts").Aggregate(def);
 
-            CommissionID = biggest;
+            CommissionID = biggest + 1;
         }
 
 

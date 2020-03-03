@@ -28,7 +28,7 @@ header {
     height: 100px;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=tel], input[type=submit] {
+input[type=text], input[type=password], input[type=email], input[type=tel], input[type=submit], textarea {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -53,6 +53,10 @@ form p {
     width: 100%;
     white-space: nowrap;
     line-height: 60px;
+}
+
+.postimages {
+    height: 600px;
 }
 
 .PostListingImage {
@@ -278,6 +282,24 @@ form p {
         margin: 0px 25%;
         /*display: inline-block;*/
     }
+
+.Comment a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.UserListing {
+    display: inline-block;
+    height: 100%;
+}
+
+.Comment .ProfileName {
+    vertical-align: top;
+}
+
+.UserCommentEnter {
+    /*display: inline-block;*/
+}
 
 #SignUpLeft, #SignUpRight {
     /*display: inline-block;*/  
