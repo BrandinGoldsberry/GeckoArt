@@ -18,9 +18,11 @@ namespace ProjectGecko.Controllers
         {
             return View();
         }
-        public IActionResult ShowAccount()
+        public IActionResult ShowAccount(long userid)
         {
-            return View();
+            Account user = Account.GetAccount(userid);
+            ViewBag.Posts = DatabaseConnection.GetUserPosts(user.AccountID);
+            return View(user);
         }
         [HttpGet]
         public IActionResult CreateAccount()

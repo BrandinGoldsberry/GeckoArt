@@ -1,4 +1,5 @@
-﻿@using ProjectGecko.Models
+﻿@using ProjectGecko
+@using ProjectGecko.Models
 @model Account
 
 @{
@@ -6,9 +7,23 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<img src="@Url.Content(Model.ProfPicPath)"/>
+<img src="@Url.Content(Model.ProfPicPath)" />
 <h3>@Model.DisplayName</h3>
 <p>Needs to display a button that takes to Commissions page</p>
 <p>@Model.Biography</p>
-
 <p>Needs to display profile specific art</p>
+@foreach (Post post in ViewBag.Posts)
+{
+    <div class="post">
+        @*<a class="prev" onclick="plusSlides(-1, @postInt)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1, @postInt)">&#10095;</a>*@
+        <div class="postimages">
+            <img class="PostListingImage" src=@Url.Content(post.ImagePaths[0]) alt="Alternate Text" />
+        </div>
+        @{ Account account = post.GetPostAccount(); }
+        <div class="InfoOverImage">
+            <p class="PostTitle">@post.Title by <span class="PosterName">@account.DisplayName</span></p>
+            <img src=@Url.Content(account.ProfPicPath) class="ProfilePicOverPost" />
+        </div>
+    </div>
+}

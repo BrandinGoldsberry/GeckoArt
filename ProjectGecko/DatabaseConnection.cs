@@ -66,6 +66,11 @@ namespace ProjectGecko
             return accountDatabase.GetCollection<Post>("Posts").Find(FindFunc).ToList();
         }
 
+        public static List<Post> GetUserPosts(long userID)
+        {
+            return accountDatabase.GetCollection<Post>("Posts").Find(x => true).ToList().Where(x => x.PosterID == userID).ToList();
+        }
+
         public static BsonDocument RunCommand(JsonCommand<BsonDocument> command)
         {
             return accountDatabase.RunCommand(command);
