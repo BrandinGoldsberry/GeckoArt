@@ -31,6 +31,9 @@ namespace ProjectGecko.Models
         [DataType(DataType.Upload)]
         public string ProfPicPath { get; set; }
 
+        [DataType(DataType.Upload)]
+        public string CommissionPricesImage { get; set; }
+
         //Phone number for contact
         [RegularExpression(@"^\d?(\s|-)?(\(\d{3}\)|\d{3})(\s|-)?\d{3}(\s|-)?\d{4}?")]
         [DataType(DataType.PhoneNumber)]
