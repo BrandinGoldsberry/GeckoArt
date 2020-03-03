@@ -237,5 +237,15 @@ namespace ProjectGecko.Controllers
                 return Redirect("LogInSignUp");
             }
         }
+    
+        [HttpPost]
+        public IActionResult Comment(string CommentText, string postId, string user)
+        {
+            Post p = Post.GetPost(long.Parse(postId));
+            Comment c = new Comment() { CommentPoster = long.Parse(user), Text = CommentText };
+            p.Comments.Add(c);
+            DatabaseConnection.UpdatePost(p);
+            return Redirect($"/{postId}/showpost");
+        }
     }
 }

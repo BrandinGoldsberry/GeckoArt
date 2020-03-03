@@ -67,7 +67,7 @@ namespace ProjectGecko.Models
             }
             //long idCount = mongoClient.GetCollection<Post>("Posts").Aggregate(def);
 
-            AccountID = biggest;
+            AccountID = biggest + 1;
         }
 
         public static Account GetAccount(long Id)
