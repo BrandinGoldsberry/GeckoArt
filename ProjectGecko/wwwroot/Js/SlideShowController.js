@@ -16,7 +16,7 @@ function plusSlides(indexer) {
             var curPost = postList.item(i);
             curPost.style.display = "none";
         }
-        postList.item(pageNumberHolder).style.display = "block";
+        postList.item(pageNumberHolder).style.display = "inline";
     }
 
     if (indexer > 0 && pageNumberHolder < postList.length - 1) {
@@ -27,7 +27,7 @@ function plusSlides(indexer) {
             var curPost = postList.item(i);
             curPost.style.display = "none";
         }
-        postList.item(pageNumberHolder).style.display = "block";
+        postList.item(pageNumberHolder).style.display = "inline";
     }
 }
 

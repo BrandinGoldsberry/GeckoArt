@@ -7,11 +7,7 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<div>
-    <h2>@Model.Title</h2>
-    <p class="ProfileName">@Model.GetPostAccount().DisplayName</p>
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+<div class="showPostCenter">
 
     @foreach (var item in Model.ImagePaths)
     {
@@ -19,6 +15,18 @@
             <img src=@Url.Content(item) alt="Alternate Text" class="postimages" />
         </div>
     }
+
+    <div class="CenterControls">
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <img src=@Url.Content(Model.GetPostAccount().ProfPicPath) alt="Alternate Text" class="ProfilePicSmall"/>
+    <div class="UserDetails">
+        <h2>@Model.Title</h2>
+        <p class="ProfileName">@Model.GetPostAccount().DisplayName</p>
+    </div>
+
 </div>
 <div class="CommentSection">
     @if (SessionVars.ActiveAcount != null)
@@ -49,7 +57,6 @@
                     <p class="ProfileName">@Account.GetAccount(item.CommentPoster).DisplayName</p>
                 </a>
                 <p class="CommentText">@item.Text</p>
-            <hr />
             </div>
         }
     </div>

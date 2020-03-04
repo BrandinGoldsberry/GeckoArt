@@ -87,13 +87,13 @@ form p {
     margin: 5px;
 }
 
-.UserDetails p {
-    font-size: 30px;
-}
+    .UserDetails p {
+        font-size: 30px;
+    }
 
-.UserDetails .UserRef {
-    color: darkgray;
-}
+    .UserDetails .UserRef {
+        color: darkgray;
+    }
 
 .ProfilePicSmall {
     width: 100px;
@@ -293,14 +293,21 @@ form p {
     }
 
 .CommentText {
-    display:block;
+    display: block;
     vertical-align: middle;
-    font-size: 30px;
+    font-size: 20px;
 }
 
-.Comment a{
+.Comment a {
     display: inline-block;
     text-decoration: none;
+}
+
+.Comment {
+    background-color: #EEE;
+    width: 50%;
+    margin: 5px auto;
+    padding: 15px;
 }
 
 .UserListing {
@@ -309,16 +316,30 @@ form p {
 }
 
 .LogInWarning {
-    font-size: 30px;
+    font-size: 25px;
+    background-color: #63EB9C;
+    text-align: center;
+    width: 35%;
+    margin: 20px auto 0px auto;
+    border-radius: 5px;
+    border: solid 5px #63EB9C;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .loggedInProfile {
     margin: 10px 10px;
 }
 
+
+
 .Comment .ProfileName {
     vertical-align: bottom;
     font-size: 25px;
+    text-decoration: none;
+    color: black;
+    vertical-align: top;
 }
 
 .Comment .ProfilePicSmall {
@@ -333,15 +354,22 @@ form p {
     border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
-    width: 50%;
+}
+
+.CommentSection {
 }
 
 .UserCommentEnter {
     /*display: inline-block;*/
 }
 
+.showPostCenter .slide, .CenterControls {
+    margin: 0px auto;
+    text-align: center;
+}
+
 #SignUpLeft, #SignUpRight {
-    /*display: inline-block;*/  
+    /*display: inline-block;*/
     width: 35%;
 }
 
