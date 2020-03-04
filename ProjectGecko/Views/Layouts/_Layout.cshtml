@@ -17,10 +17,11 @@
         @if (ProjectGecko.SessionVars.ActiveAcount != null)
         {
             string accLink = "/" + ProjectGecko.SessionVars.ActiveAcount.AccountID + "/account";
-            <a class="loggedInProfile" href=@accLink>
-                <p class="ProfileNameSmall">@ProjectGecko.SessionVars.ActiveAcount.DisplayName</p>
+            <a class="UserDetails" href=@accLink>
                 <img src=@Url.Content(ProjectGecko.SessionVars.ActiveAcount.ProfPicPath) alt="Alternate Text" class="ProfilePicSmall" />
+                <p class="ProfileNameSmall">@ProjectGecko.SessionVars.ActiveAcount.DisplayName</p>
             </a>
+            @Html.ActionLink("Search", "Search", "Home", null, new { @class = "navButton", @id = "SearchButton" })
         }
         else
         {

@@ -89,6 +89,7 @@ form p {
 
     .UserDetails p {
         font-size: 30px;
+        color: black;
     }
 
     .UserDetails .UserRef {
@@ -128,6 +129,11 @@ form p {
     display: inline;
     width: 20%;
     height: 100%;
+}
+
+.SideBar .ProfilePicSmall {
+    width: 50px;
+    height: 50px;
 }
 
 .postcontainer {
@@ -328,11 +334,14 @@ form p {
     box-sizing: border-box;
 }
 
-.loggedInProfile {
-    margin: 10px 10px;
+.loggedInProfile p, img {
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
-
-
 
 .Comment .ProfileName {
     vertical-align: bottom;
@@ -366,6 +375,14 @@ form p {
 .showPostCenter .slide, .CenterControls {
     margin: 0px auto;
     text-align: center;
+}
+
+.showAccountGallery {
+    margin-top: 30px;
+}
+
+.BigAccountName {
+    font-size: 40px !important;
 }
 
 #SignUpLeft, #SignUpRight {

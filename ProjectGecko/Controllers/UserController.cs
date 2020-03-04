@@ -249,5 +249,11 @@ namespace ProjectGecko.Controllers
             DatabaseConnection.UpdatePost(p);
             return Redirect($"/{postId}/showpost");
         }
+
+        [HttpPost]
+        public IActionResult UserCommissions()
+        {
+
+        }
     }
 }

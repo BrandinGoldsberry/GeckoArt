@@ -38,6 +38,7 @@ namespace ProjectGecko
                     m.MapRoute("Search", "search", new { controller = "Home", action = "Search" });
                     m.MapRoute("Comment", "comment", new { controller = "User", action = "Comment" });
                     m.MapRoute("UserFeed", "{userid:long}", new { controller = "User", action = "ShowFeed"});
+                    m.MapRoute("UserComms", "{userid:long}/commissions", new { controller = "User", action = "UserCommissions" });
                     m.MapRoute("UserAccount", "{userid:long}/account", new { controller = "User", action = "ShowAccount" });
                     m.MapRoute("PostArt", "{userid:long}/NewPost", new { controller = "Post", action = "CreatePost" });
                     m.MapRoute("ShowPost", "{postid:long}/ShowPost", new { controller = "Post", action = "ShowPost" });
