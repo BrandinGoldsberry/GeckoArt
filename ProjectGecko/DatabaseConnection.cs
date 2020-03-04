@@ -34,6 +34,16 @@ namespace ProjectGecko
             return accountDatabase.GetCollection<Account>("AccountInfo").Find(FindFunc).ToList();
         }
 
+        public static Commission GetCommission(long Id)
+        {
+            return accountDatabase.GetCollection<Commission>("Commissions").Find(c => c.CommissionID == Id).FirstOrDefault();
+        }
+
+        public static List<Commission> GetCommissions(long commissioneeId)
+        {
+            return accountDatabase.GetCollection<Commission>("Commissions").Find(c => c.CommissioneeID == commissioneeId).ToList();
+        }
+
         public static Post GetPost(long Id)
         {
             return accountDatabase.GetCollection<Post>("Posts").Find(a => a.PostID == Id).FirstOrDefault();

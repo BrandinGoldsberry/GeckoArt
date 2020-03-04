@@ -250,10 +250,14 @@ namespace ProjectGecko.Controllers
             return Redirect($"/{postId}/showpost");
         }
 
-        [HttpPost]
-        public IActionResult UserCommissions()
+        [HttpGet]
+        public IActionResult UserCommissions(long userid)
         {
+            Account a = Account.GetAccount(userid);
 
+
+
+            return View();
         }
     }
 }

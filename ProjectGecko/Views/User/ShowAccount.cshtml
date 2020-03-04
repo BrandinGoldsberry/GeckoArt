@@ -16,7 +16,8 @@
     }
     <p class="userBio">@Model.Biography</p>
 </div>
-<a class="navButton" href="#">content</a>
+@{ string comLink = "/" + Model.AccountID + "/commissions"; }
+<a class="navButton" href=@comLink>User's Commissions</a>
 <div class="row showAccountGallery">
     @foreach (Post post in ViewBag.Posts)
     {
