@@ -1,0 +1,64 @@
+﻿@using ProjectGecko.Models
+@using ProjectGecko
+@model ProjectGecko.Models.Post
+
+@{
+    ViewData["Title"] = "ShowSinglePost";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<div class="showPostCenter">
+
+    @foreach (var item in Model.ImagePaths)
+    {
+        <div class="slide">
+            <img src=@Url.Content(item) alt="Alternate Text" class="postimages" />
+        </div>
+    }
+
+    <div class="CenterControls">
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <img src=@Url.Content(Model.GetPostAccount().ProfPicPath) alt="Alternate Text" class="ProfilePicSmall"/>
+    <div class="UserDetails">
+        <h2>@Model.Title</h2>
+        <p class="ProfileName">@Model.GetPostAccount().DisplayName</p>
+    </div>
+
+</div>
+<div class="CommentSection">
+    @if (SessionVars.ActiveAcount != null)
+    {
+        <div class="UserCommentEnter">
+            @using (Html.BeginForm("Comment", "User", FormMethod.Post))
+            {
+                <textarea type="text" name="CommentText"></textarea>
+                <input type="hidden" name="postId" value=@Model.PostID />
+                <input type="hidden" name="user" value=@SessionVars.ActiveAcount.AccountID />
+                <input type="submit" value="Comment" />
+            }
+        </div>
+    }
+    else
+    {
+        <p class="LogInWarning">Log In to comment</p>
+    }
+    <div class="PostCommentList">
+        @foreach (Comment item in Model.Comments)
+        {
+            <div class="Comment">
+                @{ string accountPath = "/" + Account.GetAccount(item.CommentPoster).AccountID + "/account"; }
+                <a href=@accountPath>
+                    <img class="ProfilePicSmall" src=@Url.Content(Account.GetAccount(item.CommentPoster).ProfPicPath) alt="Alternate Text" />
+                </a>
+                <a class="ProfileName" href=@accountPath>
+                    <p class="ProfileName">@Account.GetAccount(item.CommentPoster).DisplayName</p>
+                </a>
+                <p class="CommentText">@item.Text</p>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Js/SlideShowController.js"></script>

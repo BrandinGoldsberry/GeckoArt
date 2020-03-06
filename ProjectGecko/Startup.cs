@@ -27,15 +27,24 @@ namespace ProjectGecko
                 app.UseDeveloperExceptionPage();
             }
 
+            DatabaseConnection.DatabaseConnect();
+
             app.UseStaticFiles();
 
             app.UseMvc
             (
                 m =>
                 {
-                    m.MapRoute("UserFeed", "{userid:int}", new { controller = "User", action = "ShowFeed"});
-                    m.MapRoute("UserAccount", "{userid}/account", new { controller = "User", action = "ShowAccount" });
-                    m.MapRoute("CreateAccount", "createaccount", new { controller = "User", action = "CreateAccount" });
+                    m.MapRoute("Search", "search", new { controller = "Home", action = "Search" });
+                    m.MapRoute("Comment", "comment", new { controller = "User", action = "Comment" });
+                    m.MapRoute("UserFeed", "{userid:long}", new { controller = "User", action = "ShowFeed"});
+                    m.MapRoute("UserComms", "{userid:long}/commissions", new { controller = "User", action = "UserCommissions" });
+                    m.MapRoute("UserAccount", "{userid:long}/account", new { controller = "User", action = "ShowAccount" });
+                    m.MapRoute("PostArt", "{userid:long}/NewPost", new { controller = "Post", action = "CreatePost" });
+                    m.MapRoute("ShowPost", "{postid:long}/ShowPost", new { controller = "Post", action = "ShowPost" });
+                    m.MapRoute("LogInSignUp", "LogInSignUp", new { controller = "Home", action = "LogInSignUp" });
+                    m.MapRoute("LogIn", "LogIn", new { controller = "User", action = "LogIn" });
+                    m.MapRoute("CreateAccount", "CreateAccount", new { controller = "User", action = "CreateAccount" });
                     m.MapRoute("Home", "/", new { controller = "Home", action = "Index"});
                     m.MapRoute("Catchall", "{**a}", new { controller = "Home", action = "Index" });
                 }

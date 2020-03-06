@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,8 +10,9 @@ namespace ProjectGecko.Models
 {
     public class Account
     {
-        private static int _lastID = 0;
-        public int AccountID { get; set; }
+        public ObjectId _id;
+
+        public long AccountID { get; set; }
         //Account display name
         public string DisplayName { get; set; }
 
@@ -28,12 +31,16 @@ namespace ProjectGecko.Models
         [DataType(DataType.Upload)]
         public string ProfPicPath { get; set; }
 
+        [DataType(DataType.Upload)]
+        public string CommissionPricesImage { get; set; }
+
         //Phone number for contact
         [RegularExpression(@"^\d?(\s|-)?(\(\d{3}\)|\d{3})(\s|-)?\d{3}(\s|-)?\d{4}?")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
         //Email for contact
+        [Required(ErrorMessage = "Email is required")]
         [RegularExpression(@"((\w|\d)+)@((\w|\d){2,})\.((\w|\d){2,})")]
         [DataType(DataType.EmailAddress)]
         public string  Email { get; set; }
@@ -48,7 +55,32 @@ namespace ProjectGecko.Models
 
         public Account()
         {
-            AccountID = _lastID++;
+            string manualCommand = "{find: 'AccountInfo'}";
+            var cmd = new JsonCommand<BsonDocument>(manualCommand);
+            var result = DatabaseConnection.RunCommand(cmd);
+            var bsonList = result.Elements.ElementAt(0).Value.AsBsonDocument.Elements.ElementAt(0).Value.AsBsonArray.ToList();
+            long biggest = 0;
+            foreach (var item in bsonList)
+            {
+                long accountId = item.AsBsonDocument.GetElement(1).Value.ToInt64();
+                if (accountId > biggest)
+                {
+                    biggest = accountId;
+                }
+            }
+            //long idCount = mongoClient.GetCollection<Post>("Posts").Aggregate(def);
+
+            AccountID = biggest + 1;
+        }
+
+        public static Account GetAccount(long Id)
+        {
+            return DatabaseConnection.GetAccount(Id);
+        }
+
+        public static Account GetAccount(string UserName)
+        {
+            return DatabaseConnection.GetAccount(UserName);
         }
     }
 }
