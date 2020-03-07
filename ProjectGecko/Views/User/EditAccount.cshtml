@@ -1,0 +1,45 @@
+﻿@model ProjectGecko.Models.Account
+
+@{
+    ViewData["Title"] = "EditAccount";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h1>EditAccount</h1>
+
+<h4>Account</h4>
+<hr />
+@using (Html.BeginForm("EditAccount", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <p>Display Name: <span>@Html.EditorFor(m => m.DisplayName)</span></p>
+    <p>@Html.ValidationMessageFor(m => m.DisplayName)</p>
+
+    @*<p>The name that your account is associated with</p>
+        <p>Username: <span>@Html.EditorFor(m => m.UserName)</span></p>
+        <p>@Html.ValidationMessageFor(m => m.UserName)</p>*@
+
+    <p>Password: <span>@Html.EditorFor(m => m.Password)</span></p>
+    <p>@Html.ValidationMessageFor(m => m.Password)</p>
+
+    <p>Profile Image: <span><input type="file" name="ProfPicPath" /></span></p>
+    <p>@Html.ValidationMessageFor(m => m.ProfPicPath)</p>
+
+    <p>Phone Number: <span>@Html.EditorFor(m => m.PhoneNumber)</span></p>
+    <p>@Html.ValidationMessageFor(m => m.PhoneNumber)</p>
+
+    <p>Email: <span>@Html.EditorFor(m => m.Email)</span></p>
+    <p>@Html.ValidationMessageFor(m => m.Email)</p>
+
+    <p>PayPal: <span>@Html.EditorFor(m => m.PayPal)</span></p>
+    <p>@Html.ValidationMessageFor(m => m.PayPal)</p>
+
+    <p>Commission Prices Image: <span><input type="file" name="CommissionPricesImage" /></span></p>
+    <p>@Html.ValidationMessageFor(m => m.CommissionPricesImage)</p>
+
+    <p>Biography: <span>@Html.EditorFor(m => m.Biography)</span></p>
+    <p>@Html.ValidationMessageFor(m => m.Biography)</p>
+
+    <input type="hidden" value="@Model.AccountID"/>
+
+    <input type="submit" />
+}

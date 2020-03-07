@@ -34,6 +34,11 @@ namespace ProjectGecko
             return accountDatabase.GetCollection<Account>("AccountInfo").Find(FindFunc).ToList();
         }
 
+        public static void UpdateAccount(FilterDefinition<Account> fil, UpdateDefinition<Account> upd)
+        {
+            accountDatabase.GetCollection<Account>("AccountInfo").UpdateOne(fil, upd);
+        }
+
         public static Commission GetCommission(long Id)
         {
             return accountDatabase.GetCollection<Commission>("Commissions").Find(c => c.CommissionID == Id).FirstOrDefault();

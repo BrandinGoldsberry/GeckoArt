@@ -258,5 +258,84 @@ namespace ProjectGecko.Controllers
             ViewBag.Commissions = DatabaseConnection.GetCommissionsForUser(user.AccountID);
             return View();
         }
+
+        [HttpGet]
+        public IActionResult EditAccount(long userid)
+        {
+            Account user = Account.GetAccount(userid);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult EditAccount(long userID,
+            string DisplayName,
+            string Biography,
+            string PhoneNumber,
+            string Email,
+            string Password,
+            string PayPal,
+            IFormFile commissionImage,
+            IFormFile profileImage)
+        {
+            Account user = Account.GetAccount(userID);
+
+            var filter = Builders<Account>.Filter.Eq("Id", user._id);
+
+            if (string.IsNullOrWhiteSpace(DisplayName) != true)
+            {
+                user.DisplayName = DisplayName;
+                var updateDef = Builders<Account>.Update.Set("DisplayName", user.DisplayName);
+                DatabaseConnection.UpdateAccount(filter, updateDef);
+            }
+            if (string.IsNullOrWhiteSpace(Biography) != true)
+            {
+                user.Biography = Biography;
+                var updateDef = Builders<Account>.Update.Set("Biography", user.Biography);
+                DatabaseConnection.UpdateAccount(filter, updateDef);
+            }
+            if (string.IsNullOrWhiteSpace(PhoneNumber) != true)
+            {
+                user.PhoneNumber = PhoneNumber;
+            }
+            if (string.IsNullOrWhiteSpace(Email) != true)
+            {
+                user.Email = Email;
+            }
+            if (string.IsNullOrWhiteSpace(Password) != true)
+            {
+                user.Password = Password;
+            }
+            if (string.IsNullOrWhiteSpace(PayPal) != true)
+            {
+                user.PayPal = PayPal;
+            }
+            if (commissionImage != null)
+            {
+                var match = Regex.Match(commissionImage.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
+                string ImageExtension = match.Groups["extension"].Value;
+                string pathForImage = $"~/Images/Users/{user.UserName}/Profile/CommissionPicture" + ImageExtension;
+                string pathForCopy = $"wwwroot/Images/Users/{user.UserName}/Profile/CommissionPicture" + ImageExtension;
+                using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
+                {
+                    commissionImage.CopyTo(stream);
+                }
+                user.CommissionPricesImage = pathForImage;
+            }
+            if (profileImage != null)
+            {
+                var match = Regex.Match(profileImage.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
+                string ImageExtension = match.Groups["extension"].Value;
+                string pathForImage = $"~/Images/Users/{user.UserName}/Profile/ProfilePicture" + ImageExtension;
+                string pathForCopy = $"wwwroot/Images/Users/{user.UserName}/Profile/ProfilePicture" + ImageExtension;
+                using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
+                {
+                    profileImage.CopyTo(stream);
+                }
+                user.ProfPicPath = pathForImage;
+            }
+            DatabaseConnection.UpdateAccount(user);
+            SessionVars.ActiveAcount = user;
+            return RedirectToAction("ShowAccount", "User");
+        }
     }
 }
