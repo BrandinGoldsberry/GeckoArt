@@ -22,8 +22,8 @@
     </div>
 
     <img src=@Url.Content(Model.GetPostAccount().ProfPicPath) alt="Alternate Text" class="ProfilePicSmall" />
-    @{string accountPath = "/" + Model.GetPostAccount().AccountID + "/account"};
-    <a class="UserDetails" href=@accountPath>
+    @{string accountPath1 = "/" + Model.GetPostAccount().AccountID + "/account";}
+    <a class="UserDetails" href=@accountPath1>
         <h2>@Model.Title</h2>
         <p class="ProfileName">@Model.GetPostAccount().DisplayName</p>
     </a>
