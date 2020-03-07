@@ -10,14 +10,21 @@
 <img src="@Url.Content(Model.ProfPicPath)" class="ProfilePicSmall" />
 <div class="UserDetails">
     <p class="BigAccountName">@Model.DisplayName</p>
-    @if(String.IsNullOrWhiteSpace(Model.Biography))
+    @if (String.IsNullOrWhiteSpace(Model.Biography))
     {
         <p class="userBio">My bio is empty :(</p>
     }
     <p class="userBio">@Model.Biography</p>
 </div>
-@{ string comLink = "/" + Model.AccountID + "/commissions"; }
-<a class="navButton" href=@comLink>User's Commissions</a>
+@{ if (SessionVars.ActiveAcount != null)
+    {
+        if (SessionVars.ActiveAcount.AccountID == Model.AccountID)
+        {
+            string comLink = "/" + Model.AccountID + "/commissions";
+            <a class="navButton" href=@comLink>User's Commissions</a>
+        }
+    }
+}
 <div class="row showAccountGallery">
     @foreach (Post post in ViewBag.Posts)
     {
