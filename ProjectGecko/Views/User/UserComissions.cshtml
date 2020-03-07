@@ -1,0 +1,27 @@
+﻿@using ProjectGecko.Models
+@model Account
+
+@{
+    ViewData["Title"] = "UserComissions";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<p>Needs back end support to display queued comissions</p>
+@foreach (Commission comm in ViewBag.Commissions)
+{
+    <div class="commissionsBox">
+        <p>To: @{ comm.CommissioneeID.ToString();}</p>
+        <p>From: @{ comm.CommissionerID.ToString();}</p>
+        <p>From: @{ comm.Description.ToString();}</p>
+        @foreach (string path in comm.ImagePaths){
+            <img class="PostListingImage" src=@Url.Content(path) alt="Alternate Text" />
+        }
+    </div>
+    <br />
+    <p>Divide Divide Divide Divide Divide Divide Divide Divide Divide Divide Divide Divide Divide Divide Divide </p>
+    <br />
+}
+/**/
+<p>Needs to link to a picture that displays the specific profiles prices</p>
+
+<p>Needs button that takes user to the Commissions Request page</p>

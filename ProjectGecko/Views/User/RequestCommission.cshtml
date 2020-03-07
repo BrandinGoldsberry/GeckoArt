@@ -1,8 +1,27 @@
-﻿
+﻿@model ProjectGecko.Models.Commission
 @{
     ViewData["Title"] = "RequestCommission";
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-    <h1>RequestCommission</h1>
+<h1>RequestCommission</h1>
 
+@using (Html.BeginForm("RequestCommission", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true);
+    <p>CommissionerID: </p>
+    @Html.EditorFor(m => m.CommissionerID)
+    @Html.ValidationMessageFor(m => m.CommissionerID)
+
+    <p>CommissioneeID: </p>
+    @Html.EditorFor(m => m.CommissioneeID)
+    @Html.ValidationMessageFor(m => m.CommissioneeID)
+
+    <input type="file" multiple="multiple" name="imagePaths" value="">
+
+    <p>Description: </p>
+    @Html.EditorFor(m => m.Description)
+    @Html.ValidationMessageFor(m => m.Description)
+    <br />
+    <input type="submit" value="Submit" />
+}

@@ -44,6 +44,16 @@ namespace ProjectGecko
             return accountDatabase.GetCollection<Commission>("Commissions").Find(c => c.CommissioneeID == commissioneeId).ToList();
         }
 
+        public static List<Commission> GetCommissionsFromUser(long userID)
+        {
+            return accountDatabase.GetCollection<Commission>("Commissions").Find(x => true).ToList().Where(x => x.CommissionerID == userID).ToList(); ;
+        }
+
+        public static List<Commission> GetCommissionsForUser(long userID)
+        {
+            return accountDatabase.GetCollection<Commission>("Commissions").Find(x => true).ToList().Where(x => x.CommissioneeID == userID).ToList(); ;
+        }
+
         public static Post GetPost(long Id)
         {
             return accountDatabase.GetCollection<Post>("Posts").Find(a => a.PostID == Id).FirstOrDefault();

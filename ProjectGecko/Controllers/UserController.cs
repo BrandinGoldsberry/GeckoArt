@@ -184,6 +184,7 @@ namespace ProjectGecko.Controllers
                             string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
                             //for local copy of image
                             string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
+                            Directory.CreateDirectory($"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/");
                             pathList[i] = pathForImage;
                             using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
                             {
@@ -253,10 +254,8 @@ namespace ProjectGecko.Controllers
         [HttpGet]
         public IActionResult UserCommissions(long userid)
         {
-            Account a = Account.GetAccount(userid);
-
-
-
+            Account user = Account.GetAccount(userid);
+            ViewBag.Commissions = DatabaseConnection.GetCommissionsForUser(user.AccountID);
             return View();
         }
     }
