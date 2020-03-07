@@ -147,7 +147,7 @@ namespace ProjectGecko.Controllers
         }
 
         [HttpPost]
-        public IActionResult RequestCommission(long commissionerID, long commissioneeID, IFormFileCollection imagePaths, string description)
+        public IActionResult RequestCommission(long commissioneeID, IFormFileCollection imagePaths, string description)
         {
             if (!ModelState.IsValid)
             {
@@ -163,7 +163,7 @@ namespace ProjectGecko.Controllers
                 if (imagePaths.Any())
                 {
                     Commission newCommission = new Commission();
-                    Account AccountPoster = Account.GetAccount(commissionerID);
+                    Account AccountPoster = Account.GetAccount(SessionVars.ActiveAcount.AccountID);
                     string[] pathList = new string[imagePaths.Count];
 
                     int i = 0;
@@ -181,10 +181,10 @@ namespace ProjectGecko.Controllers
                             var match = Regex.Match(item.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
                             string ImageExtension = match.Groups["extension"].Value;
                             string imageName = Regex.Replace(item.FileName, @"\s", "+");
-                            string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
+                            string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
                             //for local copy of image
-                            string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
-                            Directory.CreateDirectory($"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{commissionerID}/{commissioneeID}/{newCommission.CommissionID}/");
+                            string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
+                            Directory.CreateDirectory($"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/");
                             pathList[i] = pathForImage;
                             using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
                             {
@@ -195,7 +195,7 @@ namespace ProjectGecko.Controllers
 
                             if (imagePaths.Count() == i)
                             {
-                                newCommission.CommissionerID = commissionerID;
+                                newCommission.CommissionerID = AccountPoster.AccountID;
                                 newCommission.CommissioneeID = commissioneeID;
                                 newCommission.ImagePaths = pathList;
                                 newCommission.Description = description;
@@ -203,7 +203,7 @@ namespace ProjectGecko.Controllers
                         }
                     }
 
-                    if (newCommission.CommissionerID == commissionerID && newCommission.CommissioneeID == commissioneeID && newCommission.ImagePaths == pathList && newCommission.Description == description)
+                    if (newCommission.CommissionerID == AccountPoster.AccountID && newCommission.CommissioneeID == commissioneeID && newCommission.ImagePaths == pathList && newCommission.Description == description)
                     {
                         DatabaseConnection.InsertCommision(newCommission);
 

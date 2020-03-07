@@ -9,9 +9,6 @@
 @using (Html.BeginForm("RequestCommission", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true);
-    <p>CommissionerID: </p>
-    @Html.EditorFor(m => m.CommissionerID)
-    @Html.ValidationMessageFor(m => m.CommissionerID)
 
     <p>CommissioneeID: </p>
     @Html.EditorFor(m => m.CommissioneeID)

@@ -23,6 +23,11 @@
             string comLink = "/" + Model.AccountID + "/commissions";
             <a class="navButton" href=@comLink>User's Commissions</a>
         }
+        else
+        {
+            string reqCom = "/request";
+            <a class="navButton" href=@reqCom>Request Commission</a>
+        }
     }
 }
 <div class="row showAccountGallery">
