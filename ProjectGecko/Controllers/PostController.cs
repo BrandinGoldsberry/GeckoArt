@@ -93,5 +93,34 @@ namespace ProjectGecko.Controllers
             }
             return View();
         }
+
+
+        [HttpPost]
+        public IActionResult AddLike(long PostId)
+        {
+            Post p = DatabaseConnection.GetPost(PostId);
+            if(!p.UserLikedPost(long.Parse(Request.Query["userid"])))
+            {
+                p.Likes += 1;
+                p.PeopleLiked.Add(long.Parse(Request.Query["userid"]));
+                DatabaseConnection.UpdatePost(p);
+            }
+
+            return Json($"{{\"Likes\": {p.Likes}}}");
+        }
+
+        [HttpPost]
+        public IActionResult RemoveLike(long PostId)
+        {
+            Post p = Post.GetPost(PostId);
+            if(p.Likes > 0 && p.UserLikedPost(long.Parse(Request.Query["userid"])))
+            {
+                p.Likes -= 1;
+                p.PeopleLiked.Remove(long.Parse(Request.Query["userid"]));
+                DatabaseConnection.UpdatePost(p);
+            }
+
+            return Json($"{{\"Likes\": {p.Likes}}}");
+        }
     }
 }

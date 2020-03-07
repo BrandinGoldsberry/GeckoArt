@@ -8,6 +8,8 @@
 }
 
 <div class="showPostCenter">
+    <script src="~/Js/JQuery/jquery-3.4.1.min.js"></script>
+    <script src="~/Js/LikeButton.js"></script>
 
     @foreach (var item in Model.ImagePaths)
     {
@@ -25,6 +27,20 @@
     <div class="UserDetails">
         <h2>@Model.Title</h2>
         <p class="ProfileName">@Model.GetPostAccount().DisplayName</p>
+        <p class="LikeCounter">Likes: @Model.Likes</p>
+        @if( SessionVars.ActiveAcount != null )
+        {
+            if(Model.UserLikedPost(SessionVars.ActiveAcount.AccountID))
+            {
+                <input type="image" src="~/Images/SiteGraphics/Like.png" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/NoLike.png" style="display:none"  class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
+            }
+            else
+            {
+                <input type="image" src="~/Images/SiteGraphics/Like.png" style="display: none" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/NoLike.png" class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
+            }
+        }
     </div>
 
 </div>

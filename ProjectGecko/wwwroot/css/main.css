@@ -385,6 +385,11 @@ form p {
     font-size: 40px !important;
 }
 
+.LikeButton {
+    height: 25px;
+    /*width: 25px;*/
+}
+
 #SignUpLeft, #SignUpRight {
     /*display: inline-block;*/
     width: 35%;
