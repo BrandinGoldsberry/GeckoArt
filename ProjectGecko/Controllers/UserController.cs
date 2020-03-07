@@ -128,6 +128,7 @@ namespace ProjectGecko.Controllers
                                 PhoneNumber = PhoneNumber,
                                 Password = Password,
                                 Email = Email,
+                                AllowCommissions = "No",
                                 ProfPicPath = pathForImage
                             };
                             DatabaseConnection.InsertAccount(account);
@@ -274,6 +275,7 @@ namespace ProjectGecko.Controllers
             string Email,
             string Password,
             string PayPal,
+            string AllowCommissions,
             IFormFile commissionImage,
             IFormFile profileImage)
         {
@@ -308,6 +310,10 @@ namespace ProjectGecko.Controllers
             if (string.IsNullOrWhiteSpace(PayPal) != true)
             {
                 user.PayPal = PayPal;
+            }
+            if (string.IsNullOrWhiteSpace(AllowCommissions) != true)
+            {
+                user.AllowCommissions = AllowCommissions;
             }
             if (commissionImage != null)
             {

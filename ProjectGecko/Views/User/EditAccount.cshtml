@@ -39,6 +39,12 @@
     <p>Biography: <span>@Html.EditorFor(m => m.Biography)</span></p>
     <p>@Html.ValidationMessageFor(m => m.Biography)</p>
 
+    <br />
+
+    <p>Allow Commissions to be requested to you</p>
+    <p>Yes:   @Html.RadioButton("AllowCommissions", "Yes")</p>  
+    <p>No:   @Html.RadioButton("AllowCommissions", "No")</p>
+
     <input type="hidden" value="@Model.AccountID"/>
 
     <input type="submit" />
