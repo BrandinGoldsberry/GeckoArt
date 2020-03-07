@@ -27,7 +27,7 @@
         }
         else if(SessionVars.ActiveAcount.AccountID != Model.AccountID && Model.AllowCommissions == "Yes")
         {
-            string reqCom = "/request";
+            string reqCom = "/request?CommissioneeId=" + Model.AccountID;
             <a class="navButton" href=@reqCom>Request Commission</a>
         }
     }

@@ -8,11 +8,9 @@
 
 @using (Html.BeginForm("RequestCommission", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.ValidationSummary(true);
+    @Html.ValidationSummary(false);
 
-    <p>CommissioneeID: </p>
-    @Html.EditorFor(m => m.CommissioneeID)
-    @Html.ValidationMessageFor(m => m.CommissioneeID)
+    <input type="hidden" name="CommissioneeId" value=@ViewBag.CommissioneeId />
 
     <input type="file" multiple="multiple" name="imagePaths" value="">
 

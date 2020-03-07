@@ -144,7 +144,16 @@ namespace ProjectGecko.Controllers
         [HttpGet]
         public IActionResult RequestCommission()
         {
-            return View();
+            string CommIdStr = Request.Query["CommissioneeId"];
+            if (CommIdStr != null)
+            {
+                ViewBag.CommissioneeId = long.Parse(CommIdStr);
+                return View();
+            }
+            else
+            {
+                return Redirect("/");
+            }
         }
 
         [HttpPost]
@@ -194,27 +203,17 @@ namespace ProjectGecko.Controllers
 
                             i++;
 
-                            if (imagePaths.Count() == i)
-                            {
-                                newCommission.CommissionerID = AccountPoster.AccountID;
-                                newCommission.CommissioneeID = commissioneeID;
-                                newCommission.ImagePaths = pathList;
-                                newCommission.Description = description;
-                            }
                         }
                     }
+                    newCommission.CommissionerID = AccountPoster.AccountID;
+                    newCommission.CommissioneeID = commissioneeID;
+                    newCommission.ImagePaths = pathList;
+                    newCommission.Description = description;
 
-                    if (newCommission.CommissionerID == AccountPoster.AccountID && newCommission.CommissioneeID == commissioneeID && newCommission.ImagePaths == pathList && newCommission.Description == description)
-                    {
-                        DatabaseConnection.InsertCommision(newCommission);
+                    DatabaseConnection.InsertCommision(newCommission);
 
-                        //return Redirect($"/{newCommission.PostID}/ShowPost");
-                        return Redirect("ShowFeed");
-                    }
-                    else
-                    {
-                        return View();
-                    }
+                    //return Redirect($"/{newCommission.PostID}/ShowPost");
+                    return Redirect("ShowFeed");
                 }
             }
             return View();
@@ -241,7 +240,7 @@ namespace ProjectGecko.Controllers
                 return Redirect("LogInSignUp");
             }
         }
-    
+
         [HttpPost]
         public IActionResult Comment(string CommentText, string postId, string user)
         {
