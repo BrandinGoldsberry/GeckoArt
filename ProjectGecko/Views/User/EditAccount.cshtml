@@ -21,8 +21,12 @@
     <p>Password: <span>@Html.EditorFor(m => m.Password)</span></p>
     <p>@Html.ValidationMessageFor(m => m.Password)</p>
 
-    <p>Profile Image: <span><input type="file" name="ProfPicPath" /></span></p>
-    <p>@Html.ValidationMessageFor(m => m.ProfPicPath)</p>
+    <label id="ImageUploadLabel" for="ImageUploader">
+        <img id="ImagePreviewer" src=@Url.Content(Model.ProfPicPath) alt="">
+    </label>
+    <p id="ImagePreviewerLabel">Choose Image</p>
+    <input type="file" name="profileImage" value="" id="ImageUploader">
+    <script src="~/Js/ImageUploadPreview.js"></script>
 
     <p>Phone Number: <span>@Html.EditorFor(m => m.PhoneNumber)</span></p>
     <p>@Html.ValidationMessageFor(m => m.PhoneNumber)</p>
@@ -42,10 +46,10 @@
     <br />
 
     <p>Allow Commissions to be requested to you</p>
-    <p>Yes:   @Html.RadioButton("AllowCommissions", "Yes")</p>  
+    <p>Yes:   @Html.RadioButton("AllowCommissions", "Yes")</p>
     <p>No:   @Html.RadioButton("AllowCommissions", "No")</p>
 
-    <input type="hidden" value="@Model.AccountID"/>
+    <input type="hidden" value="@Model.AccountID" />
 
     <input type="submit" />
 }

@@ -1,5 +1,16 @@
-﻿* {
+﻿@font-face {
+    font-family: 'Lemon-Milk-Regular';
+    src: url('../Fonts/Lemon Milk/LEMONMILK-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Lemon-Milk-Bold';
+    src: url('../Fonts/Lemon Milk/LEMONMILK-Bold.otf') format('opentype');
+}
+
+* {
     margin: 0;
+    font-family: 'Quicksand', sans-serif;
 }
 
 html, body {
@@ -16,6 +27,8 @@ html {
 body {
     margin-bottom: 60px;
     margin: 0;
+    background-size: cover;
+    background-image: url(../Images/SiteGraphics/Bubbles.png);
 }
 
 header {
@@ -60,11 +73,15 @@ form p {
 }
 
 .postimages {
-    height: 600px;
+    height: 300px;
 }
 
 .PostListingImage {
     height: 300px;
+    background-color: white;
+    border-width: 2px;
+    border-color: #63EB9C;
+    border-style: solid;
 }
 
 .PostListing {
@@ -131,9 +148,16 @@ form p {
     height: 100%;
 }
 
+.SideBar a {
+    display: block;
+    text-align: center;  
+    width: 60%;
+    margin: 10px auto;
+}
+
 .SideBar .ProfilePicSmall {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
 }
 
 .postcontainer {
@@ -444,4 +468,28 @@ form p {
     position: absolute !important;
     z-index: -100 !important;
     opacity: 0 !important;
+}
+
+.pageheader {
+    font-family: Lemon-Milk-Regular;
+    margin-left: 100px;
+}
+
+.SiteTitle {
+    font-family: Lemon-Milk-Bold;
+    display: inline-block;
+    margin-top: 10px;
+    padding-top: 15px;
+    vertical-align: top;
+    font-size: 35px;
+}
+
+.Mascot {
+    height: 100px;
+}
+
+.HomeLink{
+    text-decoration: none;
+    color: black;
+    display:inline-block;
 }

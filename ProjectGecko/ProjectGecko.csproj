@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +17,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\CSS\" />
     <Folder Include="wwwroot\Images\Users\Default\" />
+    <Folder Include="wwwroot\Fonts\" />
   </ItemGroup>
 
 </Project>
