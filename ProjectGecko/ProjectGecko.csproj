@@ -19,6 +19,7 @@
     <Folder Include="wwwroot\Images\Users\Default\" />
     <Folder Include="wwwroot\Fonts\" />
     <Folder Include="wwwroot\Images\Users\Dizzy10188\Commissions\" />
+    <Folder Include="wwwroot\Js\JQuery\" />
   </ItemGroup>
 
 </Project>
