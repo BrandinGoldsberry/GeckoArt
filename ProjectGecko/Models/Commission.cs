@@ -29,9 +29,10 @@ namespace ProjectGecko.Models
 
         public Commission()
         {
-            string manualCommand = "{find: 'Posts'}";
+            string manualCommand = "{find: 'Commissions'}";
             var cmd = new JsonCommand<BsonDocument>(manualCommand);
             var result = DatabaseConnection.RunCommand(cmd);
+            //gets the id values as a list of values
             var bsonList = result.Elements.ElementAt(0).Value.AsBsonDocument.Elements.ElementAt(0).Value.AsBsonArray.ToList();
             long biggest = 0;
             foreach (var item in bsonList)

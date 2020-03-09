@@ -12,7 +12,11 @@
 
     <input type="hidden" name="CommissioneeId" value=@ViewBag.CommissioneeId />
 
-    <input type="file" multiple="multiple" name="imagePaths" value="">
+    <input type="file" name="imagePath1" accept="image/jpg, image/jpeg, image/png" value="">
+    <input type="file" name="imagePath2" accept="image/jpg, image/jpeg, image/png" value="">
+    <input type="file" name="imagePath3" accept="image/jpg, image/jpeg, image/png" value="">
+    <input type="file" name="imagePath4" accept="image/jpg, image/jpeg, image/png" value="">
+    <input type="file" name="imagePath5" accept="image/jpg, image/jpeg, image/png" value="">
 
     <p>Description: </p>
     @Html.EditorFor(m => m.Description)

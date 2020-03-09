@@ -157,7 +157,13 @@ namespace ProjectGecko.Controllers
         }
 
         [HttpPost]
-        public IActionResult RequestCommission(long commissioneeID, IFormFileCollection imagePaths, string description)
+        public IActionResult RequestCommission(long commissioneeID,
+            IFormFile imagePath1,
+            IFormFile imagePath2,
+            IFormFile imagePath3,
+            IFormFile imagePath4,
+            IFormFile imagePath5,
+            string description)
         {
             if (!ModelState.IsValid)
             {
@@ -167,43 +173,55 @@ namespace ProjectGecko.Controllers
             if (string.IsNullOrWhiteSpace(description))
             {
                 ModelState.AddModelError("Description", "Please enter a description");
+                return View();
             }
             else
             {
-                if (imagePaths.Any())
+                if (imagePath1 != null || imagePath2 != null || imagePath3 != null || imagePath4 != null || imagePath5 != null)
                 {
                     Commission newCommission = new Commission();
                     Account AccountPoster = Account.GetAccount(SessionVars.ActiveAcount.AccountID);
-                    string[] pathList = new string[imagePaths.Count];
-
+                    List<IFormFile> imagePaths = new List<IFormFile>();
+                    //string[] pathList = new string[0];
+                    if (imagePath1 != null)
+                    {
+                        imagePaths.Add(imagePath1);
+                    }
+                    if (imagePath2 != null)
+                    {
+                        imagePaths.Add(imagePath2);
+                    }
+                    if (imagePath3 != null)
+                    {
+                        imagePaths.Add(imagePath3);
+                    }
+                    if (imagePath4 != null)
+                    {
+                        imagePaths.Add(imagePath4);
+                    }
+                    if (imagePath5 != null)
+                    {
+                        imagePaths.Add(imagePath5);
+                    }
+                    string[] pathList = new string[imagePaths.Count()];
                     int i = 0;
                     foreach (var item in imagePaths)
                     {
-                        if (item.ContentType.ToString() != "image/png" &&
-                            item.ContentType.ToString() != "image/jpeg" &&
-                            item.ContentType.ToString() != "image/jpg")
-                        {
-                            ModelState.AddModelError("imagePaths", "All images MUST be a png or jpeg (jpg)");
-                            break;
-                        }
-                        else
-                        {
-                            var match = Regex.Match(item.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
-                            string ImageExtension = match.Groups["extension"].Value;
-                            string imageName = Regex.Replace(item.FileName, @"\s", "+");
-                            string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
-                            //for local copy of image
-                            string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
-                            Directory.CreateDirectory($"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/");
-                            pathList[i] = pathForImage;
-                            using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
-                            {
-                                item.CopyTo(stream);
-                            }
 
-                            i++;
-
+                        var match = Regex.Match(item.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
+                        string ImageExtension = match.Groups["extension"].Value;
+                        string imageName = Regex.Replace(item.FileName, @"\s", "+");
+                        string pathForImage = $"~/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
+                        //for local copy of image
+                        string pathForCopy = $"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/Image" + i + ImageExtension;
+                        Directory.CreateDirectory($"wwwroot/Images/Users/{AccountPoster.UserName}/Commissions/{AccountPoster.AccountID}/{commissioneeID}/{newCommission.CommissionID}/");
+                        pathList[i] = pathForImage;
+                        using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
+                        {
+                            item.CopyTo(stream);
                         }
+
+                        i++;
                     }
                     newCommission.CommissionerID = AccountPoster.AccountID;
                     newCommission.CommissioneeID = commissioneeID;
@@ -212,11 +230,13 @@ namespace ProjectGecko.Controllers
 
                     DatabaseConnection.InsertCommision(newCommission);
 
-                    //return Redirect($"/{newCommission.PostID}/ShowPost");
                     return Redirect("ShowFeed");
                 }
+                else
+                {
+                    return View();
+                }
             }
-            return View();
         }
 
         [HttpPost]
