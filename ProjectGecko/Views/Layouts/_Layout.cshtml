@@ -1,13 +1,45 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/main.css" />
 </head>
 <body>
-    <div>
+    <header>
+        <a class ="HomeLink" href ="/">
+        <img class="Mascot" src="~/Images/SiteGraphics/GeckoSketchMascot.png" alt="Enter the Gecko" />
+        <h1 class="SiteTitle">GeckoSketch</h1>
+        </a>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+        </nav>
+    </header>
+    <div class="SideBar">
+        @if (ProjectGecko.SessionVars.ActiveAcount != null)
+        {
+            string accLink = "/" + ProjectGecko.SessionVars.ActiveAcount.AccountID + "/account";
+            <a class="UserDetails" href=@accLink>
+                <img src=@Url.Content(ProjectGecko.SessionVars.ActiveAcount.ProfPicPath) alt="Alternate Text" class="ProfilePicSmall" />
+                <p class="ProfileNameSmall">@ProjectGecko.SessionVars.ActiveAcount.DisplayName</p>
+            </a>
+            @Html.ActionLink("Search", "Search", "Home", null, new { @class = "navButton", @id = "SearchButton" })
+        }
+        else
+        {
+            @Html.ActionLink("Login/SignUp", "LogInSignUp", "Home", null, new { @class = "navButton", @id = "LogInButton" })
+            @Html.ActionLink("Search", "Search", "Home", null, new { @class = "navButton", @id = "SearchButton" })
+        }
+    </div>
+    <div class="container">
         @RenderBody()
     </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+
+        </div>
+    </footer>
 </body>
 </html>
