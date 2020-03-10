@@ -5,54 +5,92 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<h1>EditAccount</h1>
+<h1 class="editAccountHeader">Edit Account</h1>
 
-<h4>Account</h4>
 <hr />
 @using (Html.BeginForm("EditAccount", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <p>Display Name: <span>@Html.EditorFor(m => m.DisplayName)</span></p>
-    <p>@Html.ValidationMessageFor(m => m.DisplayName)</p>
+    <div>
+        <div class="frontEndEdits">
+            <div class="profilePicEdit">
+                <label id="ImageUploadLabel" for="ImageUploader">
+                    <img id="ImagePreviewer" src=@Url.Content(Model.ProfPicPath) alt="">
+                </label>
+                <p id="ImagePreviewerLabel">Choose Image</p>
+                <input type="file" name="profileImage" value="" id="ImageUploader">
+                <script src="~/Js/ImageUploadPreview.js"></script>
+            </div>
 
-    @*<p>The name that your account is associated with</p>
-        <p>Username: <span>@Html.EditorFor(m => m.UserName)</span></p>
-        <p>@Html.ValidationMessageFor(m => m.UserName)</p>*@
+            <div class="displayNameEdit">
+                <p>Display Name: </p>
+                <p><input name="DisplayName" type="text" size="30"/></p>
+                <p>@Html.ValidationMessageFor(m => m.DisplayName)</p>
+            </div>
 
-    <p>Password: <span>@Html.EditorFor(m => m.Password)</span></p>
-    <p>@Html.ValidationMessageFor(m => m.Password)</p>
+            <div class="bioEdit">
+                <p>Biography:</p>
+                <p><textarea name="Biography" rows="3" , cols="100"></textarea></p>
+                <p>@Html.ValidationMessageFor(m => m.Biography)</p>
+            </div>
 
-    <label id="ImageUploadLabel" for="ImageUploader">
-        <img id="ImagePreviewer" src=@Url.Content(Model.ProfPicPath) alt="">
-    </label>
-    <p id="ImagePreviewerLabel">Choose Image</p>
-    <input type="file" name="profileImage" value="" id="ImageUploader">
-    <script src="~/Js/ImageUploadPreview.js"></script>
+            @*<p>The name that your account is associated with</p>
+                <p>Username: <p>@Html.EditorFor(m => m.UserName)</p></p>
+                <p>@Html.ValidationMessageFor(m => m.UserName)</p>*@
+        </div>
 
-    <p>Phone Number: <span>@Html.EditorFor(m => m.PhoneNumber)</span></p>
-    <p>@Html.ValidationMessageFor(m => m.PhoneNumber)</p>
+        <hr />
 
-    <p>Email: <span>@Html.EditorFor(m => m.Email)</span></p>
-    <p>@Html.ValidationMessageFor(m => m.Email)</p>
+        <div class="backEndEdits">
+            <div class="paypalEdit">
+                <p>PayPal:</p>
+                <p><input name="PayPal" type="text" size="30" /></p>
+                <p>@Html.ValidationMessageFor(m => m.PayPal)</p>
+            </div>
 
-    <p>PayPal: <span>@Html.EditorFor(m => m.PayPal)</span></p>
-    <p>@Html.ValidationMessageFor(m => m.PayPal)</p>
+            <div class="emailEdit">
+                <p>Email:</p>
+                <p><input name="Email" type="text" size="30" /></p>
+                <p>@Html.ValidationMessageFor(m => m.Email)</p>
+            </div>
 
-    <p>Commission Prices Image: <span><input type="file" name="CommissionPricesImage" /></span></p>
-    <p>@Html.ValidationMessageFor(m => m.CommissionPricesImage)</p>
+            <div class="phoneNumEdit">
+                <p>Phone Number: </p>
+                <p><input name="PhoneNumber" type="tel" size="30" /></p>
+                <p>@Html.ValidationMessageFor(m => m.PhoneNumber)</p>
+            </div>
 
-    <p>Biography: <span>@Html.EditorFor(m => m.Biography)</span></p>
-    <p>@Html.ValidationMessageFor(m => m.Biography)</p>
+            <div class="passwordEdit">
+                <p>Password:</p>
+                <p><input name="Password" type="password" size="30" /></p>
+                <p>@Html.ValidationMessageFor(m => m.Password)</p>
+            </div>
+        </div>
 
-    <br />
+        <hr />
 
-    <p>Allow Commissions to be requested to you</p>
-    <p>Yes:   @Html.RadioButton("AllowCommissions", "Yes")</p>
-    <p>No:   @Html.RadioButton("AllowCommissions", "No")</p>
+        <div class="commissionEdits">
+            <div class="commPicEdit">
+                <p>Commission Prices Image:</p>
+                <p><input type="file" name="CommissionPricesImage" /></p>
+                <p>@Html.ValidationMessageFor(m => m.CommissionPricesImage)</p>
+            </div>
 
-    <p>Maximum wanted commissions</p>
-    <p><input type="number" name="UserCommLimit" max="255" /></p>
+            <div class="commRequestEdit">
+                <p>Allow Commissions to be requested to you</p>
+                <p>Yes:   @Html.RadioButton("AllowCommissions", "Yes")</p>
+                <p>No:   @Html.RadioButton("AllowCommissions", "No")</p>
+            </div>
 
-    <input type="hidden" value="@Model.AccountID" />
+            <div class="maxCommsEdit">
+                <p>Maximum number of Commissions</p>
+                <p><input type="number" name="UserCommLimit" max="255" /></p>
+            </div>
 
-    <input type="submit" />
+            <input type="hidden" value="@Model.AccountID" />
+        </div>
+
+        <br/>
+            
+        <input type="submit" value="Update Profile" />
+    </div>
 }

@@ -41,7 +41,7 @@ header {
     height: 100px;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=tel], input[type=submit], textarea {
+input[type=text], input[type=password], input[type=number], input[type=email], input[type=tel], input[type=submit], textarea {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -523,6 +523,8 @@ a {
 
 .userBio {
     font-size: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .userSpecificButtons {
@@ -533,3 +535,90 @@ a {
     padding-top: 20px;
     padding-left: 40px;
 }
+
+.editAccountHeader {
+    padding-bottom: 15px;
+    padding-left: 20px;
+}
+
+.frontEndEdits {
+    padding-top: 20px;
+    display: inline-block;
+    position: relative;
+}
+
+.profilePicEdit {
+    display: inline-block;
+    float: left;
+}
+
+.displayNameEdit {
+    padding-top: 50px;
+    padding-left: 100px;
+    display: inline-block;
+    float: left;
+}
+
+.bioEdit {
+    padding-top: 50px;
+    padding-left: 100px;
+    display: inline-block;
+    float: left;
+}
+
+.backEndEdits {
+    padding-top: 20px;
+    padding-bottom: 15px;
+    display: inline-block;
+    position: relative;
+}
+
+.phoneNumEdit {
+    padding-left: 100px;
+    display: inline-block;
+    float: left;
+}
+
+.emailEdit {
+    padding-left: 100px;
+    display: inline-block;
+    float: left;
+}
+
+.paypalEdit {
+    padding-left: 40px;
+    display: inline-block;
+    float: left;
+}
+
+.passwordEdit {
+    padding-left: 100px;
+    display: inline-block;
+    float: left;
+}
+
+.commissionEdits {
+    padding-top: 20px;
+    padding-bottom: 15px;
+    display: inline-block;
+    position: relative;
+}
+
+.commPicEdit {
+    padding-left: 80px;
+    display: inline-block;
+    float: left;
+}
+
+.commRequestEdit {
+    padding-left: 150px;
+    display: inline-block;
+    float: left;
+}
+
+.maxCommsEdit {
+    padding-left: 150px;
+    display: inline-block;
+    float: left;
+}
+
