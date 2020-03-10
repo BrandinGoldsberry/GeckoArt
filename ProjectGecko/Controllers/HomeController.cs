@@ -44,8 +44,8 @@ namespace ProjectGecko.Controllers
         [HttpPost]
         public IActionResult Search(string SearchBar)
         {
-            ViewBag.Posts = DatabaseConnection.FindPosts(SearchBar);
-            ViewBag.Accounts = DatabaseConnection.FindAccounts(SearchBar);
+            ViewBag.Posts = DatabaseConnection.FindAsyncPosts(SearchBar);
+            ViewBag.Accounts = DatabaseConnection.FindAsyncAccounts(SearchBar);
             return View();
         }
     }

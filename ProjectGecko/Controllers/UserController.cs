@@ -139,6 +139,22 @@ namespace ProjectGecko.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult RemoveComm(long CommId)
+        {
+            long commeeid = long.Parse(Request.Query["commeeid"]);
+            Commission toDelete = DatabaseConnection.GetCommission(CommId);
+            if(toDelete.CommissioneeID == commeeid)
+            {
+                DatabaseConnection.RemoveCommission(CommId);
+                return Json("{'Status': Ok}");
+            }
+            else
+            {
+                return Json("{'Status': Bad}");
+            }
+        }
+
         [HttpGet]
         public IActionResult RequestCommission()
         {
