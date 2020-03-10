@@ -85,7 +85,6 @@ namespace ProjectGecko.Controllers
                                 ProfPicPath = pathForImage
                             };
                             DatabaseConnection.InsertAccount(account);
-                            SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
                         else if (profileImage.ContentType.ToString() != "image/png" && profileImage.ContentType.ToString() != "image/jpeg" && profileImage.ContentType.ToString() != "image/jpg")
@@ -101,7 +100,6 @@ namespace ProjectGecko.Controllers
                                 ProfPicPath = pathForImage
                             };
                             DatabaseConnection.InsertAccount(account);
-                            SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
                         else
@@ -133,7 +131,6 @@ namespace ProjectGecko.Controllers
                                 ProfPicPath = pathForImage
                             };
                             DatabaseConnection.InsertAccount(account);
-                            SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
                     }
@@ -181,7 +178,7 @@ namespace ProjectGecko.Controllers
                 if (imagePath1 != null || imagePath2 != null || imagePath3 != null || imagePath4 != null || imagePath5 != null)
                 {
                     Commission newCommission = new Commission();
-                    Account AccountPoster = Account.GetAccount(SessionVars.ActiveAcount.AccountID);
+                    Account AccountPoster = Account.GetAccount(Request.Cookies["LoggedUser"]);
                     List<IFormFile> imagePaths = new List<IFormFile>();
                     //string[] pathList = new string[0];
                     if (imagePath1 != null)
@@ -252,7 +249,7 @@ namespace ProjectGecko.Controllers
             }
             else if (LoginAttempt.Password == Password)
             {
-                SessionVars.ActiveAcount = LoginAttempt;
+                Response.Cookies.Append("LoggedUser", LoginAttempt.UserName);
                 return Redirect("/");
             }
             else
@@ -367,7 +364,6 @@ namespace ProjectGecko.Controllers
                 user.ProfPicPath = pathForImage;
             }
             DatabaseConnection.UpdateAccount(user);
-            SessionVars.ActiveAcount = user;
             return RedirectToAction("ShowAccount", "User");
         }
     }

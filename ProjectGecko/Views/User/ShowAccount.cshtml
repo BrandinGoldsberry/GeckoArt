@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = "ShowAccount";
     Layout = "~/Views/Layouts/_Layout.cshtml";
+    Account LoggedIn = Account.GetAccount(Context.Request.Cookies["LoggedUser"]);
 }
 
 <section>
@@ -22,16 +23,16 @@
     <p class="userBio">@Model.Biography</p>
 </section>
 <section class="userSpecificButtons">
-    @{ if (SessionVars.ActiveAcount != null)
+    @{ if (LoggedIn != null)
         {
-            if (SessionVars.ActiveAcount.AccountID == Model.AccountID)
+            if (LoggedIn.AccountID == Model.AccountID)
             {
                 string comLink = "/" + Model.AccountID + "/commissions";
                 <a class="navButton" href=@comLink>User's Commissions</a>
                 string editLink = "/" + Model.AccountID + "/edit";
                 <a class="navButton" href=@editLink>Edit Profile</a>
             }
-            else if (SessionVars.ActiveAcount.AccountID != Model.AccountID && Model.AllowCommissions == "Yes")
+            else if (LoggedIn.AccountID != Model.AccountID && Model.AllowCommissions == "Yes")
             {
                 string reqCom = "/request?CommissioneeId=" + Model.AccountID;
                 <a class="navButton" href=@reqCom>Request Commission</a>
