@@ -10,6 +10,5 @@ namespace ProjectGecko
     {
         public static Account ActiveAcount { get; set; }
         //public static List<Account> AccountTesting = new List<Account>();
-        public static List<Post> posts = new List<Post>();
     }
 }

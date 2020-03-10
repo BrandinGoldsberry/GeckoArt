@@ -22,6 +22,7 @@ namespace ProjectGecko.Controllers
         {
             Account user = Account.GetAccount(userid);
             ViewBag.Posts = DatabaseConnection.GetUserPosts(user.AccountID);
+            ViewBag.CommNum = DatabaseConnection.GetCommissions(userid).Count();
             return View(user);
         }
         [HttpGet]

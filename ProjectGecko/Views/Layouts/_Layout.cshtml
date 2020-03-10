@@ -26,6 +26,8 @@
                 <p class="ProfileNameSmall">@ProjectGecko.SessionVars.ActiveAcount.DisplayName</p>
             </a>
             @Html.ActionLink("Search", "Search", "Home", null, new { @class = "navButton", @id = "SearchButton" })
+            string postLink = "/" + ProjectGecko.SessionVars.ActiveAcount.AccountID + "/NewPost";
+            <a class="navButton" href=@postLink >New Post</a>
         }
         else
         {
