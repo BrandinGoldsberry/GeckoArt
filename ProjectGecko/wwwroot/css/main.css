@@ -250,6 +250,17 @@ a {
     opacity: 1;
 }
 
+.PostAndControls {
+    position: relative;
+}
+
+.LikeSection {
+    
+}
+
+.LikeCounter {
+    font-size: 30px
+}
 
 .navButton {
     text-decoration: none;
@@ -274,7 +285,7 @@ a {
     padding: 16px;
     color: #65D0EB;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 25px;
     -moz-transition: 0.6s ease;
     -o-transition: 0.6s ease;
     -webkit-transition: 0.6s ease;
@@ -421,7 +432,7 @@ a {
 }
 
 .LikeButton {
-    height: 25px;
+    height: 50px;
     /*width: 25px;*/
 }
 

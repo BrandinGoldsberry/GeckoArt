@@ -249,7 +249,9 @@ namespace ProjectGecko.Controllers
             }
             else if (LoginAttempt.Password == Password)
             {
-                Response.Cookies.Append("LoggedUser", LoginAttempt.UserName);
+                CookieOptions cookieOptions = new CookieOptions();
+                cookieOptions.Expires = null;
+                Response.Cookies.Append("LoggedUser", LoginAttempt.UserName, cookieOptions);
                 return Redirect("/");
             }
             else
@@ -365,6 +367,12 @@ namespace ProjectGecko.Controllers
             }
             DatabaseConnection.UpdateAccount(user);
             return RedirectToAction("ShowAccount", "User");
+        }
+
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("LoggedUser");
+            return Redirect("/");
         }
     }
 }

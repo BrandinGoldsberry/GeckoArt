@@ -12,16 +12,18 @@
     <script src="~/Js/JQuery/jquery-3.4.1.min.js"></script>
     <script src="~/Js/LikeButton.js"></script>
 
-    @foreach (var item in Model.ImagePaths)
-    {
-        <div class="slide">
-            <img src=@Url.Content(item) alt="Alternate Text" class="postimages singlepostimages" />
-        </div>
-    }
+    <div class="PostAndControls">
+        @foreach (var item in Model.ImagePaths)
+        {
+            <div class="slide">
+                <img src=@Url.Content(item) alt="Alternate Text" class="postimages singlepostimages" />
+            </div>
+        }
 
-    <div class="CenterControls">
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="CenterControls">
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
     </div>
 
     <img src=@Url.Content(Model.GetPostAccount().ProfPicPath) alt="Alternate Text" class="ProfilePicSmall" />
@@ -29,21 +31,24 @@
     <a class="UserDetails" href=@accountPath1>
         <h2>@Model.Title</h2>
         <p class="ProfileName">@Model.GetPostAccount().DisplayName</p>
+    </a>
+
+    <div class="LikeSection">
         <p class="LikeCounter">Likes: @Model.Likes</p>
-        @if( LoggedIn != null )
+        @if (LoggedIn != null)
         {
-            if(Model.UserLikedPost(LoggedIn.AccountID))
+            if (Model.UserLikedPost(LoggedIn.AccountID))
             {
-                <input type="image" src="~/Images/SiteGraphics/Like.png" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @LoggedIn.AccountID)"/>
-                <input type="image" src="~/Images/SiteGraphics/NoLike.png" style="display:none"  class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @LoggedIn.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/Like.png" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @LoggedIn.AccountID)" />
+                <input type="image" src="~/Images/SiteGraphics/NoLike.png" style="display:none" class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @LoggedIn.AccountID)" />
             }
             else
             {
-                <input type="image" src="~/Images/SiteGraphics/Like.png" style="display: none" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @LoggedIn.AccountID)"/>
-                <input type="image" src="~/Images/SiteGraphics/NoLike.png" class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @LoggedIn.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/Like.png" style="display: none" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @LoggedIn.AccountID)" />
+                <input type="image" src="~/Images/SiteGraphics/NoLike.png" class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @LoggedIn.AccountID)" />
             }
         }
-    </a>
+    </div>
 
 </div>
 <div class="CommentSection">
@@ -61,7 +66,7 @@
     }
     else
     {
-        <a class="LogInWarning" href="/LogInSignUp" >Log In to comment</a>
+        <a class="LogInWarning" href="/LogInSignUp">Log In to comment</a>
     }
     <div class="PostCommentList">
         @foreach (Comment item in Model.Comments)

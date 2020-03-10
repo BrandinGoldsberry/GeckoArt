@@ -32,6 +32,7 @@
                 @Html.ActionLink("Search", "Search", "Home", null, new { @class = "navButton", @id = "SearchButton" })
                 string postLink = "/" + LoggedIn.AccountID + "/NewPost";
                 <a class="navButton" href=@postLink>New Post</a>
+                <a class="navButton" href="/logout">Log Out</a>
             }
             else
             {
