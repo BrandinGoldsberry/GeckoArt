@@ -25,7 +25,7 @@
             string editLink = "/" + Model.AccountID + "/edit";
             <a class="navButton" href=@editLink>Edit Profile</a>
         }
-        else if(SessionVars.ActiveAcount.AccountID != Model.AccountID && Model.AllowCommissions == "Yes")
+        else if(SessionVars.ActiveAcount.AccountID != Model.AccountID && Model.AllowCommissions == "Yes" && ViewBag.CommNum < Model.CommissionLimit)
         {
             string reqCom = "/request?CommissioneeId=" + Model.AccountID;
             <a class="navButton" href=@reqCom>Request Commission</a>
