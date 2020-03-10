@@ -7,35 +7,45 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<img src="@Url.Content(Model.ProfPicPath)" class="ProfilePicSmall" />
-<div class="UserDetails">
-    <p class="BigAccountName">@Model.DisplayName</p>
+<section>
+    <img src="@Url.Content(Model.ProfPicPath)" class="ProfilePicSmall" />
+    <div class="UserDetails">
+        <p class="BigAccountName">@Model.DisplayName</p>
+    </div>
+
+</section>
+<section>
     @if (String.IsNullOrWhiteSpace(Model.Biography))
     {
         <p class="userBio">My bio is empty :(</p>
     }
     <p class="userBio">@Model.Biography</p>
-</div>
-@{ if (SessionVars.ActiveAcount != null)
-    {
-        if (SessionVars.ActiveAcount.AccountID == Model.AccountID)
+</section>
+<section class="userSpecificButtons">
+    @{ if (SessionVars.ActiveAcount != null)
         {
-            string comLink = "/" + Model.AccountID + "/commissions";
-            <a class="navButton" href=@comLink>User's Commissions</a>
-            string editLink = "/" + Model.AccountID + "/edit";
-            <a class="navButton" href=@editLink>Edit Profile</a>
-        }
-        else if(SessionVars.ActiveAcount.AccountID != Model.AccountID && Model.AllowCommissions == "Yes")
-        {
-            string reqCom = "/request?CommissioneeId=" + Model.AccountID;
-            <a class="navButton" href=@reqCom>Request Commission</a>
+            if (SessionVars.ActiveAcount.AccountID == Model.AccountID)
+            {
+                string comLink = "/" + Model.AccountID + "/commissions";
+                <a class="navButton" href=@comLink>User's Commissions</a>
+                string editLink = "/" + Model.AccountID + "/edit";
+                <a class="navButton" href=@editLink>Edit Profile</a>
+            }
+            else if (SessionVars.ActiveAcount.AccountID != Model.AccountID && Model.AllowCommissions == "Yes")
+            {
+                string reqCom = "/request?CommissioneeId=" + Model.AccountID;
+                <a class="navButton" href=@reqCom>Request Commission</a>
+            }
         }
     }
-}
+</section>
+
+<h1 class="userPostsHeader">@Model.DisplayName's Posts</h1>
 <div class="row showAccountGallery">
     @foreach (Post post in ViewBag.Posts)
     {
-        <div class="post">
+        string postLink = "/" + post.PostID + "/ShowPost";
+        <a class="post" href="@postLink">
             @*<a class="prev" onclick="plusSlides(-1, @postInt)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, @postInt)">&#10095;</a>*@
             <div class="postimages">
@@ -46,6 +56,6 @@
                 <p class="PostTitle">@post.Title by <span class="PosterName">@account.DisplayName</span></p>
                 <img src=@Url.Content(account.ProfPicPath) class="ProfilePicOverPost" />
             </div>
-        </div>
+        </a>
     }
 </div>

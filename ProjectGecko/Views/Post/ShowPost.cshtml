@@ -14,7 +14,7 @@
     @foreach (var item in Model.ImagePaths)
     {
         <div class="slide">
-            <img src=@Url.Content(item) alt="Alternate Text" class="postimages" />
+            <img src=@Url.Content(item) alt="Alternate Text" class="postimages singlepostimages" />
         </div>
     }
 
@@ -60,7 +60,7 @@
     }
     else
     {
-        <p class="LogInWarning">Log In to comment</p>
+        <a class="LogInWarning" href="/LogInSignUp" >Log In to comment</a>
     }
     <div class="PostCommentList">
         @foreach (Comment item in Model.Comments)

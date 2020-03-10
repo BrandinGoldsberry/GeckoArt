@@ -72,8 +72,16 @@ form p {
     margin: 25px 0px;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .postimages {
     height: 300px;
+}
+
+.singlepostimages {
+    height: 700px !important;
 }
 
 .PostListingImage {
@@ -102,6 +110,7 @@ form p {
 .UserDetails {
     vertical-align: top;
     margin: 5px;
+    color: black;
 }
 
     .UserDetails p {
@@ -292,35 +301,35 @@ form p {
 }
 
 .LoginFormWrapper {
-    width: 80%;
+    width: 90%;
     margin: 5px auto;
 }
-
-    .LoginFormWrapper h2 {
-        text-align: center;
-    }
 
     .LoginFormWrapper div {
         margin: 2px auto;
     }
 
 .LogIn {
-    width: 50%;
+    width: 48%;
+    display: inline-block;
+    float: right;
+    padding: 5px;
 }
 
     .LogIn input {
         width: 100%;
     }
 
-.SignUp input {
-    width: 100%;
+.SignUp {
+    width: 48%;
+    display: inline-block;
+    float: left;
+    padding: 5px;
 }
 
-    .SignUp input[type=submit] {
-        width: 50%;
-        margin: 0px 25%;
-        /*display: inline-block;*/
-    }
+.SignUp input {
+    width: 100%
+}
 
 .CommentText {
     display: block;
@@ -347,6 +356,8 @@ form p {
 
 .LogInWarning {
     font-size: 25px;
+    display: block;
+    color: black;
     background-color: #63EB9C;
     text-align: center;
     width: 35%;
@@ -497,4 +508,17 @@ form p {
     text-decoration: none;
     color: black;
     display:inline-block;
+}
+
+.userBio {
+    font-size: 25px;
+}
+
+.userSpecificButtons {
+    padding: 10px;
+}
+
+.userPostsHeader {
+    padding-top: 20px;
+    padding-left: 40px;
 }
