@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = "ShowSinglePost";
     Layout = "~/Views/Layouts/_Layout.cshtml";
+    Account LoggedIn = Account.GetAccount(Context.Request.Cookies["LoggedUser"]);
 }
 
 <div class="showPostCenter">
@@ -14,7 +15,7 @@
     @foreach (var item in Model.ImagePaths)
     {
         <div class="slide">
-            <img src=@Url.Content(item) alt="Alternate Text" class="postimages" />
+            <img src=@Url.Content(item) alt="Alternate Text" class="postimages singlepostimages" />
         </div>
     }
 
@@ -29,38 +30,38 @@
         <h2>@Model.Title</h2>
         <p class="ProfileName">@Model.GetPostAccount().DisplayName</p>
         <p class="LikeCounter">Likes: @Model.Likes</p>
-        @if( SessionVars.ActiveAcount != null )
+        @if( LoggedIn != null )
         {
-            if(Model.UserLikedPost(SessionVars.ActiveAcount.AccountID))
+            if(Model.UserLikedPost(LoggedIn.AccountID))
             {
-                <input type="image" src="~/Images/SiteGraphics/Like.png" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
-                <input type="image" src="~/Images/SiteGraphics/NoLike.png" style="display:none"  class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/Like.png" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @LoggedIn.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/NoLike.png" style="display:none"  class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @LoggedIn.AccountID)"/>
             }
             else
             {
-                <input type="image" src="~/Images/SiteGraphics/Like.png" style="display: none" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
-                <input type="image" src="~/Images/SiteGraphics/NoLike.png" class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @SessionVars.ActiveAcount.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/Like.png" style="display: none" class="LikeButton RemoveLike" onclick="RemoveLike(@Model.PostID, @LoggedIn.AccountID)"/>
+                <input type="image" src="~/Images/SiteGraphics/NoLike.png" class="LikeButton AddLike" onclick="AddLike(@Model.PostID, @LoggedIn.AccountID)"/>
             }
         }
     </a>
 
 </div>
 <div class="CommentSection">
-    @if (SessionVars.ActiveAcount != null)
+    @if (LoggedIn != null)
     {
         <div class="UserCommentEnter">
             @using (Html.BeginForm("Comment", "User", FormMethod.Post))
             {
                 <textarea type="text" name="CommentText"></textarea>
                 <input type="hidden" name="postId" value=@Model.PostID />
-                <input type="hidden" name="user" value=@SessionVars.ActiveAcount.AccountID />
+                <input type="hidden" name="user" value=@LoggedIn.AccountID />
                 <input type="submit" value="Comment" />
             }
         </div>
     }
     else
     {
-        <p class="LogInWarning">Log In to comment</p>
+        <a class="LogInWarning" href="/LogInSignUp" >Log In to comment</a>
     }
     <div class="PostCommentList">
         @foreach (Comment item in Model.Comments)

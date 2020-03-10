@@ -22,6 +22,7 @@ namespace ProjectGecko.Controllers
         {
             Account user = Account.GetAccount(userid);
             ViewBag.Posts = DatabaseConnection.GetUserPosts(user.AccountID);
+            ViewBag.CommNum = DatabaseConnection.GetCommissions(userid).Count();
             return View(user);
         }
         [HttpGet]
@@ -84,7 +85,6 @@ namespace ProjectGecko.Controllers
                                 ProfPicPath = pathForImage
                             };
                             DatabaseConnection.InsertAccount(account);
-                            SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
                         else if (profileImage.ContentType.ToString() != "image/png" && profileImage.ContentType.ToString() != "image/jpeg" && profileImage.ContentType.ToString() != "image/jpg")
@@ -100,7 +100,6 @@ namespace ProjectGecko.Controllers
                                 ProfPicPath = pathForImage
                             };
                             DatabaseConnection.InsertAccount(account);
-                            SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
                         else
@@ -132,7 +131,6 @@ namespace ProjectGecko.Controllers
                                 ProfPicPath = pathForImage
                             };
                             DatabaseConnection.InsertAccount(account);
-                            SessionVars.ActiveAcount = account;
                             return Redirect("/");
                         }
                     }
@@ -180,7 +178,7 @@ namespace ProjectGecko.Controllers
                 if (imagePath1 != null || imagePath2 != null || imagePath3 != null || imagePath4 != null || imagePath5 != null)
                 {
                     Commission newCommission = new Commission();
-                    Account AccountPoster = Account.GetAccount(SessionVars.ActiveAcount.AccountID);
+                    Account AccountPoster = Account.GetAccount(Request.Cookies["LoggedUser"]);
                     List<IFormFile> imagePaths = new List<IFormFile>();
                     //string[] pathList = new string[0];
                     if (imagePath1 != null)
@@ -251,7 +249,7 @@ namespace ProjectGecko.Controllers
             }
             else if (LoginAttempt.Password == Password)
             {
-                SessionVars.ActiveAcount = LoginAttempt;
+                Response.Cookies.Append("LoggedUser", LoginAttempt.UserName);
                 return Redirect("/");
             }
             else
@@ -295,24 +293,31 @@ namespace ProjectGecko.Controllers
             string Password,
             string PayPal,
             string AllowCommissions,
-            IFormFile commissionImage,
+            byte UserCommLimit,
+            IFormFile CommissionPricesImage,
             IFormFile profileImage)
         {
             Account user = Account.GetAccount(userID);
 
             var filter = Builders<Account>.Filter.Eq("Id", user._id);
 
+            if(UserCommLimit != 0)
+            {
+                user.CommissionLimit = UserCommLimit;
+
+            }
+
             if (string.IsNullOrWhiteSpace(DisplayName) != true)
             {
                 user.DisplayName = DisplayName;
-                var updateDef = Builders<Account>.Update.Set("DisplayName", user.DisplayName);
-                DatabaseConnection.UpdateAccount(filter, updateDef);
+                //var updateDef = Builders<Account>.Update.Set("DisplayName", user.DisplayName);
+                //DatabaseConnection.UpdateAccount(filter, updateDef);
             }
             if (string.IsNullOrWhiteSpace(Biography) != true)
             {
                 user.Biography = Biography;
-                var updateDef = Builders<Account>.Update.Set("Biography", user.Biography);
-                DatabaseConnection.UpdateAccount(filter, updateDef);
+                //var updateDef = Builders<Account>.Update.Set("Biography", user.Biography);
+                //DatabaseConnection.UpdateAccount(filter, updateDef);
             }
             if (string.IsNullOrWhiteSpace(PhoneNumber) != true)
             {
@@ -334,15 +339,15 @@ namespace ProjectGecko.Controllers
             {
                 user.AllowCommissions = AllowCommissions;
             }
-            if (commissionImage != null)
+            if (CommissionPricesImage != null)
             {
-                var match = Regex.Match(commissionImage.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
+                var match = Regex.Match(CommissionPricesImage.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
                 string ImageExtension = match.Groups["extension"].Value;
                 string pathForImage = $"~/Images/Users/{user.UserName}/Profile/CommissionPicture" + ImageExtension;
                 string pathForCopy = $"wwwroot/Images/Users/{user.UserName}/Profile/CommissionPicture" + ImageExtension;
                 using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
                 {
-                    commissionImage.CopyTo(stream);
+                    CommissionPricesImage.CopyTo(stream);
                 }
                 user.CommissionPricesImage = pathForImage;
             }
@@ -359,7 +364,6 @@ namespace ProjectGecko.Controllers
                 user.ProfPicPath = pathForImage;
             }
             DatabaseConnection.UpdateAccount(user);
-            SessionVars.ActiveAcount = user;
             return RedirectToAction("ShowAccount", "User");
         }
     }

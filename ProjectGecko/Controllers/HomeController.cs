@@ -18,10 +18,10 @@ namespace ProjectGecko.Controllers
             //var mongoClient = new MongoClient("mongodb+srv://admin:password1234@test-un7p6.azure.mongodb.net/test?retryWrites=true&w=majority").GetDatabase("AccountDB");
             ////return user by id
             //ViewBag.Posts = mongoClient.GetCollection<Post>("Posts").Find(x => true).ToList();
-
-            if (SessionVars.ActiveAcount != null)
+            Account account = Account.GetAccount(Request.Cookies["LoggedUser"]);
+            if (account != null)
             {
-                return View(SessionVars.ActiveAcount);
+                return View(account);
             }
             return View();
         }
