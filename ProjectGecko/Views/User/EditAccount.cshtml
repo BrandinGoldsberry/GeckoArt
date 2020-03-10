@@ -49,6 +49,9 @@
     <p>Yes:   @Html.RadioButton("AllowCommissions", "Yes")</p>
     <p>No:   @Html.RadioButton("AllowCommissions", "No")</p>
 
+    <p>Maximum wanted commissions</p>
+    <input type="number" name="UserCommLimit" max="255" />
+
     <input type="hidden" value="@Model.AccountID" />
 
     <input type="submit" />

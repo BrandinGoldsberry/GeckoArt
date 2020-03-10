@@ -295,24 +295,31 @@ namespace ProjectGecko.Controllers
             string Password,
             string PayPal,
             string AllowCommissions,
-            IFormFile commissionImage,
+            byte UserCommLimit,
+            IFormFile CommissionPricesImage,
             IFormFile profileImage)
         {
             Account user = Account.GetAccount(userID);
 
             var filter = Builders<Account>.Filter.Eq("Id", user._id);
 
+            if(UserCommLimit != 0)
+            {
+                user.CommissionLimit = UserCommLimit;
+
+            }
+
             if (string.IsNullOrWhiteSpace(DisplayName) != true)
             {
                 user.DisplayName = DisplayName;
-                var updateDef = Builders<Account>.Update.Set("DisplayName", user.DisplayName);
-                DatabaseConnection.UpdateAccount(filter, updateDef);
+                //var updateDef = Builders<Account>.Update.Set("DisplayName", user.DisplayName);
+                //DatabaseConnection.UpdateAccount(filter, updateDef);
             }
             if (string.IsNullOrWhiteSpace(Biography) != true)
             {
                 user.Biography = Biography;
-                var updateDef = Builders<Account>.Update.Set("Biography", user.Biography);
-                DatabaseConnection.UpdateAccount(filter, updateDef);
+                //var updateDef = Builders<Account>.Update.Set("Biography", user.Biography);
+                //DatabaseConnection.UpdateAccount(filter, updateDef);
             }
             if (string.IsNullOrWhiteSpace(PhoneNumber) != true)
             {
@@ -334,15 +341,15 @@ namespace ProjectGecko.Controllers
             {
                 user.AllowCommissions = AllowCommissions;
             }
-            if (commissionImage != null)
+            if (CommissionPricesImage != null)
             {
-                var match = Regex.Match(commissionImage.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
+                var match = Regex.Match(CommissionPricesImage.FileName, @"^.+(?<extension>\.[A-Za-z]+)$");
                 string ImageExtension = match.Groups["extension"].Value;
                 string pathForImage = $"~/Images/Users/{user.UserName}/Profile/CommissionPicture" + ImageExtension;
                 string pathForCopy = $"wwwroot/Images/Users/{user.UserName}/Profile/CommissionPicture" + ImageExtension;
                 using (FileStream stream = System.IO.File.OpenWrite(pathForCopy))
                 {
-                    commissionImage.CopyTo(stream);
+                    CommissionPricesImage.CopyTo(stream);
                 }
                 user.CommissionPricesImage = pathForImage;
             }

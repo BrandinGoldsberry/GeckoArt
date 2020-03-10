@@ -53,6 +53,8 @@ namespace ProjectGecko.Models
         [DataType(DataType.EmailAddress)]
         public string PayPal { get; set; }
 
+        public byte CommissionLimit { get; set; }
+
         public string AllowCommissions { get; set; }
 
         public Account()
